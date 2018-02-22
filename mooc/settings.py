@@ -27,8 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
+
+# 重定义authenticate方法，使其可以用username或者email登录，users.views 中创建的CustomBackend类是配合这里的
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,7 +45,10 @@ INSTALLED_APPS = [
     'courses',
     'organization',
     'operation',
+    'xadmin',
+    'crispy_forms',
     'DjangoUeditor',
+    'captcha',
 ]
 AUTH_USER_MODEL = "users.UserProfile"
 
@@ -134,3 +141,29 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#DjangoUeditor额外引入-------------------------------------------------
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# 公共的 static 文件，比如 jquery.js 可以放这里，这里面的文件夹不能包含 STATIC_ROOT
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static_common"),
+)
+
+# upload folder
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#DjangoUeditor额外引入-------------------------------------------------
+
+#邮箱部分
+ADMINS = (
+    ('zhibin chen','923869955@qq.com'),#设置管理员邮箱
+)
+
+#Email
+EMAIL_HOST= 'smtp.qq.com'#QQ邮箱SMTP服务器
+EMAIL_PORT= 587		 #QQ邮箱SMTP服务端口
+EMAIL_HOST_USER = '923869988@qq.com'  #我的邮箱帐号
+EMAIL_HOST_PASSWORD = 'tekgzsgjnijwbcjj' #密码
+EMAIL_USE_TLS = True
+EMAIL_FROM = EMAIL_HOST_USER
