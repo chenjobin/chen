@@ -18,7 +18,7 @@ from django.urls import path,include
 
 import xadmin
 from users.views import IndexView
-from users.views import LoginView,RegisterView,ActiveUserView
+from users.views import LoginView,RegisterView,ActiveUserView,ForgetPwdView,ResetView,ModifyPwdView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -28,6 +28,9 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name="register"),
     path('captcha/', include('captcha.urls')),
     path(r'active/<slug:active_code>/', ActiveUserView.as_view(), name="user_active"),
+    path(r'forget/', ForgetPwdView.as_view(), name="forget_pwd"),
+    path(r'reset/<slug:active_code>/', ResetView.as_view(), name="reset_pwd"),
+    path(r'modify_pwd/', ModifyPwdView.as_view(), name="modify_pwd"),
 
     # 课程相关url配置
     # path('course', include('courses.urls', namespace="course")),

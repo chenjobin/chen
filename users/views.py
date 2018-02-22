@@ -105,7 +105,7 @@ class RegisterView(View):
             #写入欢迎注册消息
             user_message = UserMessage()
             user_message.user = user_profile.id
-            user_message.message = "欢迎注册慕学在线网"
+            user_message.message = "欢迎注册芙蓉信息技术教学在线网"
             user_message.save()
 
             send_register_email(user_name, "register")
@@ -122,56 +122,57 @@ class RegisterView(View):
 #         logout(request)
 #         return HttpResponseRedirect(reverse("index"))
 
-#
-#
-# class ForgetPwdView(View):
-#     def get(self, request):
-#         forget_form = ForgetForm()
-#         return render(request, "forgetpwd.html", {"forget_form":forget_form})
-#
-#     def post(self, request):
-#         forget_form = ForgetForm(request.POST)
-#         if forget_form.is_valid():
-#             email = request.POST.get("email", "")
-#             send_register_email(email, "forget")
-#             return render(request, "send_success.html")
-#         else:
-#             return render(request, "forgetpwd.html", {"forget_form":forget_form})
-#
-#
-# class ResetView(View):
-#     def get(self, request, active_code):
-#         all_records = EmailVerifyRecord.objects.filter(code=active_code)
-#         if all_records:
-#             for record in all_records:
-#                 email = record.email
-#                 return render(request, "password_reset.html", {"email":email})
-#         else:
-#             return render(request, "active_fail.html")
-#         return render(request, "login.html")
-#
-# class ModifyPwdView(View):
-#     """
-#     修改用户密码
-#     """
-#     def post(self, request):
-#         modify_form = ModifyPwdForm(request.POST)
-#         if modify_form.is_valid():
-#             pwd1 = request.POST.get("password1", "")
-#             pwd2 = request.POST.get("password2", "")
-#             email = request.POST.get("email", "")
-#             if pwd1 != pwd2:
-#                 return render(request, "password_reset.html", {"email":email, "msg":"密码不一致"})
-#             user = UserProfile.objects.get(email=email)
-#             user.password = make_password(pwd2)
-#             user.save()
-#
-#             return render(request, "login.html")
-#         else:
-#             email = request.POST.get("email", "")
-#             return render(request, "password_reset.html", {"email":email, "modify_form":modify_form})
-#
-#
+
+
+class ForgetPwdView(View):
+    def get(self, request):
+        forget_form = ForgetForm()
+        return render(request, "forgetpwd.html", {"forget_form":forget_form})
+
+    def post(self, request):
+        forget_form = ForgetForm(request.POST)
+        if forget_form.is_valid():
+            email = request.POST.get("email", "")
+            send_register_email(email, "forget")
+            return render(request, "send_success.html")
+        else:
+            return render(request, "forgetpwd.html", {"forget_form":forget_form})
+
+
+class ResetView(View):
+    def get(self, request, active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                return render(request, "password_reset.html", {"email":email})
+        else:
+            return render(request, "active_fail.html")
+        return render(request, "login.html")
+
+
+class ModifyPwdView(View):
+    """
+    修改用户密码
+    """
+    def post(self, request):
+        modify_form = ModifyPwdForm(request.POST)
+        if modify_form.is_valid():
+            pwd1 = request.POST.get("password1", "")
+            pwd2 = request.POST.get("password2", "")
+            email = request.POST.get("email", "")
+            if pwd1 != pwd2:
+                return render(request, "password_reset.html", {"email":email, "msg":"密码不一致"})
+            user = UserProfile.objects.get(email=email)
+            user.password = make_password(pwd2)
+            user.save()
+
+            return render(request, "login.html")
+        else:
+            email = request.POST.get("email", "")
+            return render(request, "password_reset.html", {"email":email, "modify_form":modify_form})
+
+
 # class UserinfoView(LoginRequiredMixin, View):
 #     """
 #     用户个人信息
