@@ -38,7 +38,7 @@ urlpatterns = [
     # 课程机构url配置
     path(r'org/', include('organization.urls', namespace="org")),
     # 课程相关url配置
-    path('course', include('courses.urls', namespace="course")),
+    path('course/', include('courses.urls', namespace="course")),
     # 配置上传文件的访问处理函数
     path(r'media/<path:path>', serve, {"document_root": MEDIA_ROOT}),   #str path int slug uuid五种
 ]

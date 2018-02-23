@@ -5,13 +5,13 @@ from .models import Course, Lesson, Video, CourseResource, BannerCourse
 from organization.models import CourseOrg
 
 
-# class LessonInline(object):
-#     model = Lesson
-#     extra = 0
-#
-# class CourseResourceInline(object):
-#     model = CourseResource
-#     extra = 0
+class LessonInline(object):
+    model = Lesson
+    extra = 0
+
+class CourseResourceInline(object):
+    model = CourseResource
+    extra = 0
 
 class CourseAdmin(object):
     list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'get_zj_nums', 'go_to']
@@ -21,7 +21,7 @@ class CourseAdmin(object):
     readonly_fields = ['click_nums']
     list_editable = ['degree', 'desc']
     exclude = ['fav_nums']
-    # inlines = [LessonInline, CourseResourceInline]
+    inlines = [LessonInline, CourseResourceInline]
     # style_fields = {"detail":"ueditor"}
     import_excel = True
 
@@ -52,7 +52,7 @@ class BannerCourseAdmin(object):
     ordering = ['-click_nums']
     readonly_fields = ['click_nums']
     exclude = ['fav_nums']
-    # inlines = [LessonInline, CourseResourceInline]
+    inlines = [LessonInline, CourseResourceInline]
 
     # def queryset(self):
     #     qs = super(BannerCourseAdmin, self).queryset()
