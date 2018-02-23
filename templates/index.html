@@ -86,11 +86,11 @@
 						</div>
                             {% for course in courses %}
                             <div class="module1_{{ forloop.counter|add:2 }} box">
-                                <a href="{% url 'course:course_detail' course.id %}">
+                                <a href="">
                                     <img width="233" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
                                 </a>
                                 <div class="des">
-                                    <a href="{% url 'course:course_detail' course.id %}">
+                                    <a href="">
                                         <h2 title="{{ course.name }}">{{ course.name }}</h2>
                                     </a>
                                     <span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>

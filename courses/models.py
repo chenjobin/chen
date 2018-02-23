@@ -9,8 +9,9 @@ class Course(models.Model):
     course_org = models.ForeignKey(CourseOrg, verbose_name=u"课程机构", null=True, blank=True,on_delete=models.CASCADE)
     name = models.CharField(max_length=50, verbose_name=u"课程名")
     desc = models.CharField(max_length=300, verbose_name=u"课程描述")
-    detail = UEditorField(verbose_name=u"课程详情",width=600, height=300, imagePath="courses/ueditor/",
-                                         filePath="courses/ueditor/", default='')
+    detail = UEditorField(verbose_name=u"课程详情", height=300, width=1000,
+                 default=u'', blank=True, imagePath="uploads/images/",
+                 toolbars='besttome', filePath='uploads/files/')
     is_banner = models.BooleanField(default=False, verbose_name=u"是否轮播")
     teacher = models.ForeignKey(Teacher, verbose_name=u"讲师", null=True, blank=True,on_delete=models.CASCADE)
     degree = models.CharField(verbose_name=u"难度", choices=(("cj","初级"), ("zj","中级"), ("gj","高级")), max_length=2)

@@ -15,16 +15,19 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path,include
+from django.views.static import serve
 
 import xadmin
 from users.views import IndexView
-from users.views import LoginView,RegisterView,ActiveUserView,ForgetPwdView,ResetView,ModifyPwdView
+from users.views import LoginView,LogoutView,RegisterView,ActiveUserView,ForgetPwdView,ResetView,ModifyPwdView
+from mooc.settings import MEDIA_ROOT
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     path('', IndexView.as_view(), name="index"),
     path('login/', LoginView.as_view(), name="login"),
+    path('logout/', LogoutView.as_view(), name="logout"),
     path('register/', RegisterView.as_view(), name="register"),
     path('captcha/', include('captcha.urls')),
     path(r'active/<slug:active_code>/', ActiveUserView.as_view(), name="user_active"),
@@ -32,6 +35,10 @@ urlpatterns = [
     path(r'reset/<slug:active_code>/', ResetView.as_view(), name="reset_pwd"),
     path(r'modify_pwd/', ModifyPwdView.as_view(), name="modify_pwd"),
 
+    # 课程机构url配置
+    path(r'org/', include('organization.urls', namespace="org")),
     # 课程相关url配置
-    # path('course', include('courses.urls', namespace="course")),
+    path('course', include('courses.urls', namespace="course")),
+    # 配置上传文件的访问处理函数
+    path(r'media/<path:path>', serve, {"document_root": MEDIA_ROOT}),   #str path int slug uuid五种
 ]
