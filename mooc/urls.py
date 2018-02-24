@@ -41,4 +41,12 @@ urlpatterns = [
     path('course/', include('courses.urls', namespace="course")),
     # 配置上传文件的访问处理函数
     path(r'media/<path:path>', serve, {"document_root": MEDIA_ROOT}),   #str path int slug uuid五种
+
+    # url(r'^static/(?P<path>.*)$',  serve, {"document_root":STATIC_ROOT}),
+
+    # 课程相关url配置
+    path('users/', include('users.urls', namespace="users")),
+
+    # 富文本相关url
+    # url(r'^ueditor/', include('DjangoUeditor.urls')),
 ]
