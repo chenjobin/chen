@@ -20,7 +20,7 @@ from django.views.static import serve
 import xadmin
 from users.views import IndexView
 from users.views import LoginView,LogoutView,RegisterView,ActiveUserView,ForgetPwdView,ResetView,ModifyPwdView
-from mooc.settings import MEDIA_ROOT
+from mooc.settings import MEDIA_ROOT,STATIC_ROOT
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -40,9 +40,9 @@ urlpatterns = [
     # 课程相关url配置
     path('course/', include('courses.urls', namespace="course")),
     # 配置上传文件的访问处理函数
-    path(r'media/<path:path>', serve, {"document_root": MEDIA_ROOT}),   #str path int slug uuid五种
+    path('media/<path:path>', serve, {"document_root": MEDIA_ROOT}),   #str path int slug uuid五种
 
-    # url(r'^static/(?P<path>.*)$',  serve, {"document_root":STATIC_ROOT}),
+    path('static/<path:path>',  serve, {"document_root":STATIC_ROOT}),
 
     # 课程相关url配置
     path('users/', include('users.urls', namespace="users")),
@@ -50,3 +50,7 @@ urlpatterns = [
     # 富文本相关url
     # url(r'^ueditor/', include('DjangoUeditor.urls')),
 ]
+
+#全局404页面配置
+handler404 = 'users.views.page_not_found'
+handler500 = 'users.views.page_error'

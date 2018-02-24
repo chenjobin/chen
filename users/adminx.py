@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 
 from .models import EmailVerifyRecord, Banner, UserProfile
 
-
+#
 # class UserProfileAdmin(UserAdmin):
 #     def get_form_layout(self):
 #         if self.org_obj:
@@ -50,7 +50,7 @@ class EmailVerifyRecordAdmin(object):
     list_display = ['code', 'email', 'send_type', 'send_time']
     search_fields = ['code', 'email', 'send_type']
     list_filter = ['code', 'email', 'send_type', 'send_time']
-    # model_icon = 'fa fa-address-book-o'
+    model_icon = 'fa fa-address-book-o'
 
 
 class BannerAdmin(object):
@@ -63,7 +63,7 @@ class BannerAdmin(object):
 # xadmin.site.unregister(User)
 xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
 xadmin.site.register(Banner, BannerAdmin)
-# # xadmin.site.register(UserProfile, UserProfileAdmin)
+# xadmin.site.register(UserProfile, UserProfileAdmin)
 #
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
