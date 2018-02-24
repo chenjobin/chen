@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
-	<title>{% block title %}机构首页 - 芙中网{% endblock %}</title>
+	<title>{% block title %}机构首页 - 慕学网{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -40,12 +40,12 @@
 	                                </dd>
                                 </dl>
                                 <div class="btn">
-	                                <a class="personcenter fl" href="">进入个人中心</a>
-	                                <a class="fr" href="">退出</a>
+	                                <a class="personcenter fl" href="{% url 'users:user_info' %}">进入个人中心</a>
+	                                <a class="fr" href="{% url 'logout' %}">退出</a>
                                 </div>
                             </div>
                         </div>
-                        <a href="">
+                        <a href="{% url 'users:mymessage' %}">
                             <div class="msg-num"> <span id="MsgNum">{{ request.user.unread_nums }}</span></div>
                         </a>
                     {% else %}

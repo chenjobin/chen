@@ -26,7 +26,8 @@ class CourseOrg(models.Model):
                                 choices=(("pxjg","培训机构"),("gr","个人"),("gx","高校"),("gz","普通高中")))
     click_nums = models.IntegerField(default=0, verbose_name=u"点击数")
     fav_nums = models.IntegerField(default=0, verbose_name=u"收藏数")
-    image = models.ImageField(upload_to="org/%Y/%m", verbose_name=u"logo", max_length=100)
+    image = models.ImageField(upload_to="org/%Y/%m", verbose_name=u"logo",
+                              max_length=100, null=True, blank=True)
     address = models.CharField(max_length=150, verbose_name=u"机构地址")
     city = models.ForeignKey(CityDict, verbose_name=u"所在城市",on_delete=models.CASCADE)
     students = models.IntegerField(default=0, verbose_name=u"学习人数")
@@ -55,7 +56,8 @@ class Teacher(models.Model):
     click_nums = models.IntegerField(default=0, verbose_name=u"点击数")
     fav_nums = models.IntegerField(default=0, verbose_name=u"收藏数")
     age = models.IntegerField(default=18, verbose_name=u"年龄")
-    image = models.ImageField(default='', upload_to="teacher/%Y/%m", verbose_name=u"头像", max_length=100)
+    image = models.ImageField(default='', upload_to="teacher/%Y/%m", verbose_name=u"头像",
+                              max_length=100, null=True, blank=True)
     add_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
