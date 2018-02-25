@@ -72,8 +72,11 @@
                 template = el.html();
             }
 
-            template = el.html(template).text(); // decoded
-            template = $($.parseHTML(template));
+            // template = el.html(template).text(); // decoded
+            // template = $($.parseHTML(template));     
+            // 修改原因，因为inline有点小问题，修改方法，貌似有些安全问题https://github.com/sshwsfc/xadmin/issues/491
+            template = el.html(template); // decoded
+            template = $($.parseHTML(template.html()));
 
             template.removeAttr('id');
             if(template.data("replace-id")){

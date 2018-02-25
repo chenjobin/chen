@@ -7,7 +7,8 @@ from django.utils.translation import ugettext as _
 
 from .models import EmailVerifyRecord, Banner, UserProfile
 
-#
+#django2.0 以及 xadmin的版本，貌似不需要以下的注册了，已经实现了相关功能。
+# 或许和settings里的AUTH_USER_MODEL = "users.UserProfile" 有关
 # class UserProfileAdmin(UserAdmin):
 #     def get_form_layout(self):
 #         if self.org_obj:

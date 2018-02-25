@@ -14,7 +14,7 @@ class CourseOrgAdmin(object):
     list_display = ['name', 'desc', 'click_nums', 'fav_nums']
     search_fields = ['name', 'desc', 'click_nums', 'fav_nums']
     list_filter = ['name', 'desc', 'click_nums', 'fav_nums']
-    # relfield_style = 'fk-ajax'
+    # relfield_style = 'fk-ajax'  使外键的数据在搜索时才加载，不过在xadmin-django2.0貌似没有作用
     # style_fields = {"desc":"ueditor"}
     model_icon = 'fa fa-university'
 
