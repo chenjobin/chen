@@ -22,7 +22,7 @@ class CourseAdmin(object):
     list_editable = ['degree', 'desc']
     exclude = ['fav_nums']
     inlines = [LessonInline, CourseResourceInline]
-    # style_fields = {"detail":"ueditor"}
+    style_fields = {"detail": "ueditor"}
     import_excel = True
     # refresh_times = [3,5]   #可以设置页面每个几秒自动刷新，备注，以后可用
 
@@ -56,6 +56,7 @@ class BannerCourseAdmin(object):
     list_editable = ['degree', 'desc']
     exclude = ['fav_nums']
     inlines = [LessonInline, CourseResourceInline]
+    style_fields = {"detail": "ueditor"}
 
     # 重载queryset
     def queryset(self):

@@ -48,7 +48,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace="users")),
 
     # 富文本相关url
-    # url(r'^ueditor/', include('DjangoUeditor.urls')),
+    path('ueditor/', include('DjangoUeditor.urls')),
 ]
 
 #全局404页面配置
