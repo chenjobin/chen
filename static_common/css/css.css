@@ -45,6 +45,10 @@ a:hover,a:focus{ text-decoration:none !important;}
 .nav-myself{ position:relative; margin-bottom:-104px;}
 .banner-bottom{ position:relative; left:100px;height:104px; padding-top:35px; width:100%;z-index:90;}
 .search-back{ width:750px; height:50px; margin:0 auto;}
+.key {
+    color: #fb8341 !important;
+    font-size: 14px ; 
+}
 /***模拟下拉菜单***/
 .mod_select ul{margin:0;padding:0;}
 .mod_select ul li{list-style-type:none;float:left;margin-left:20px;height:24px;}

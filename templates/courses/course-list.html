@@ -22,64 +22,55 @@
                 </div>	
                 <div class="pull-right">共<span class="key">{{ org_nums }}</span>家授课机构</div>
             </div>
-            <div class="row xq-list">
+            <div class="row xq-list" style="margin: 5px;">
             	{% for course in all_courses.object_list %}
-	        	<div class="col-md-4 col-sm-6">
-	            	<a href="{% url 'course:course_detail' course.id %}">
-	                	<div class="xq-img"><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
-	                    <div class="xq-txt">
-	                    	<div class="xq-tt-sm">{{ course.name }}</div>
-	                        <div class="pull-left">时长：<font color="red">{{ course.learn_times }}</font></div>
-	                        <div class="pull-right">学习人数：{{ course.students }}&nbsp;&nbsp;</div>
-	                    </div>
-	                </a>
-	                <div class="bottom">
-	                    <a href="{% url 'course:course_detail' course.id %}"><span class="fl">来自{{ course.course_org.name }}</span></a>
-	                    <span class="star fr  notlogin
-	                        " data-favid="15">
-	                        {{ course.fav_nums }}
-	                    </span>
-	                </div>
-	            </div>
+	        	<div class="col-md-4 col-sm-6" style="margin: 0px;padding: 3px;">
+                    <a href="{% url 'course:course_detail' course.id %}">
+                        <div class="img-list-img"><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
+                        <div class="img-money">{{ course.name }}</div>
+                        <div class="img-name">
+                        	<span class="pull-left">时长：<i style="color: #fb8341;"><font size="5">{{ course.learn_times }}</font></i></span>
+                            <span class="pull-right">学习人数：<i style="color: #fb8341;"><font size="5">{{ course.students }}&nbsp;&nbsp;</font></i></span>
+                        </div>
 
+	            </div>
 	           {% endfor %}
             </div>
             <div class="text-center">
-                <ul class="pagination">    
-                    {% if all_orgs.has_previous %}
-                	<li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}" aria-label="Previous"><i class="glyphicon glyphicon-triangle-left"></i></a></li>
-	                {% endif %}
-	
-	                {% for page in all_orgs.pages %}
-	                    {% if page %}
-	                        {% ifequal page all_orgs.number %}
-	                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
-	                        {% else %}
-	                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-	                        {% endifequal %}
-	                    {% else %}
-	                        <li class="none"><a href="">...</a></li>
-	                    {% endif %}
-	                {% endfor %}
-	                {% if all_orgs.has_next %}
-	                    <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}" aria-label="Next"><i class="glyphicon glyphicon-triangle-right"></i></a></li>
-	                {% endif %}
+                <ul class="pagination">
+                    {% if all_courses.has_previous %}
+                        <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}"><i class="glyphicon glyphicon-triangle-left"></i></a></li>
+                    {% endif %}
 
-                 </ul>
+                    {% for page in all_courses.pages %}
+                        {% if page %}
+                            {% ifequal page all_courses.number %}
+                                <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% else %}
+                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                            {% endifequal %}
+                        {% else %}
+                            <li class="none"><a href="">...</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if all_courses.has_next %}
+                        <li class="long"><a href="?{{ all_courses.next_page_number.querystring }}"><i class="glyphicon glyphicon-triangle-right"></i></a></li>
+                    {% endif %}
+
+                </ul>
             </div>
         </div>
     </div>
     <div class="pull-left zf-right-c">
-    	<div class="zf-top">推荐机构</div>
+    	<div class="zf-top">推荐课程</div>
         <ul class="zf-list-b">
-        	{% for curent_org1 in hot_orgs %} 
+        	{% for hot_course in hot_courses %}
         	<li>    
-        		<!--不知道为什么就是不能使用获得curent_org1.id .image 数据-->
-            	<a href="">
-                	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ course_org1.image }}"></div>
-                    <div class="right-money">{{ curent_org1.name }}{{course_org1.id}}</div>
+            	<a href="{% url 'course:course_detail' hot_course.id %}">
+                	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_course.image }}"></div>
+                    <div class="right-money">{{ teacher.name }}</div>
                     <div class="right-txt">
-                    	<p>{{ curent_org1.address }}</p>
+                    	<p>难度：<i style="color: #fb8341;"><font size="5">{{ hot_course.get_degree_display }}</font></i></p>
                         <div> </div>
                     </div>
                 </a>

@@ -24,18 +24,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand active" href="{% url 'index' %}">首页</a>
+          <a class="navbar-brand active" href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
 			<li {% if request.path|slice:'7' == '/course' %}class="active"{% endif %}>
-				<a href="{% url 'course:course_list' %}">课程</a>
+				<a href="{% url 'course:course_list' %}"><span class="glyphicon glyphicon-book"></span>&nbsp;课程</a>
 			</li>
 			<li {% if request.path|slice:'12' == '/org/teacher' %}class="active"{% endif %}>
-				<a href="{% url 'org:teacher_list' %}">教师</a>
+				<a href="{% url 'org:teacher_list' %}"><span class="glyphicon glyphicon-user"></span>&nbsp;教师</a>
 			</li>
 			<li {% if request.path|slice:'9' == '/org/list' %}class="active" {% endif %}>
-				<a href="{% url 'org:org_list' %}">授课机构</a>
+				<a href="{% url 'org:org_list' %}"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;授课机构</a>
 			</li>
 		
           </ul>
@@ -90,39 +90,39 @@
             	<div class="pull-left ul-width">
                 	<div class="link-tt">关于微舍</div>
                     <ul>
-                    	<li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">品牌故事</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">品牌理念</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">发展历程</a></li>
+                    	<li><a href="">品牌故事</a></li>
+                        <li><a href="">品牌理念</a></li>
+                        <li><a href="">发展历程</a></li>
                     </ul>
                 </div>
             	<div class="pull-left ul-width">
                 	<div class="link-tt">微舍服务</div>
                     <ul>
-                    	<li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">销售模式</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">租后服务</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">智能设备的应用</a></li>
+                    	<li><a href="">销售模式</a></li>
+                        <li><a href="">租后服务</a></li>
+                        <li><a href="">智能设备的应用</a></li>
                     </ul>
                 </div>
             	<div class="pull-left ul-width">
                 	<div class="link-tt">管理运营</div>
                     <ul>
-                    	<li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">团队管理软件</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">房源管理系统-</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">蘑菇系统</a></li>
+                    	<li><a href="">团队管理软件</a></li>
+                        <li><a href="">房源管理系统-</a></li>
+                        <li><a href="">蘑菇系统</a></li>
                     </ul>
                 </div>
             	<div class="pull-left ul-width">
                 	<div class="link-tt">行业前景</div>
                     <ul>
-                    	<li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E8%A1%8C%E4%B8%9A%E5%89%8D%E6%99%AF.html">行业前景</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/">房东加盟</a></li>
+                    	<li><a href="">行业前景</a></li>
+                        <li><a href="">房东加盟</a></li>
                     </ul>
                 </div>
             	<div class="pull-left ul-width">
                 	<div class="link-tt">新闻中心</div>
                     <ul>
-                    	<li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E6%96%B0%E9%97%BB.html">最新资讯</a></li>
-                        <li><a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E6%96%B0%E9%97%BB.html">新闻专题</a></li>
+                    	<li><a href="">最新资讯</a></li>
+                        <li><a href="">新闻专题</a></li>
                     </ul>
                 </div>
                 <div class="pull-left ewm">

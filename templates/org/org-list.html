@@ -43,7 +43,7 @@
 				
                         </ul>
                     </div>	
-                    <div class="pull-right">共<span class="key">{{ org_nums }}</span>家授课机构</div>
+                    <div class="pull-right">共<font size="5">{{ org_nums }}</font>家授课机构</div>
                 </div>
                 <ul class="zf-list-b">
                 	{% for course_org in all_orgs.object_list %}
@@ -59,7 +59,7 @@
                                  	</div>
                             	</div>
                                 <div class="zf-txt">
-									<p class="pic9">课程数：<span>1</span></p><p class="c7">学习人数：<span>1000</span></p>
+									<p class="pic9"><span class="glyphicon glyphicon-book"></span>&nbsp;课程数：<span>1</span></p><p class="c7"><span class="glyphicon glyphicon-file"></span>&nbsp;学习人数：<span>1000</span></p>
                                 </div>
                                 <div class="label-span">经典课程名、此处</div>
                                 <div class="money">联系我们</div>
@@ -98,14 +98,16 @@
         <div class="pull-left zf-right-c">
         	<div class="zf-top">推荐机构</div>
             <ul class="zf-list-b">
-            	{% for curent_org1 in hot_orgs %} 
+            	{% for hot_org in hot_orgs %} 
             	<li>    
-            		<!--不知道为什么就是不能使用获得curent_org1.id .image 数据-->
-                	<a href="">
-                    	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ course_org1.image }}"></div>
-                        <div class="right-money">{{ curent_org1.name }}{{course_org1.id}}</div>
+            		<!--  不知道为什么就是不能使用获得curent_org1.id .image 数据
+            			发现原来必须用 hot_org。  汗
+            		-->
+                	<a href="{% url 'org:org_home' hot_org.id %}">
+                    	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_org.image }}"></div>
+                        <div class="right-money">{{ hot_org.name }}{{hot_org.id}}</div>
                         <div class="right-txt">
-                        	<p>{{ curent_org1.address }}</p>
+                        	<p><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{{ hot_org.address }}</p>
                             <div> </div>
                         </div>
                     </a>
