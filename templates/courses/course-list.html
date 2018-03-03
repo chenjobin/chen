@@ -1,104 +1,95 @@
 {% extends 'base.html' %}
-{% block title %}公开课列表 - 芙中学习网{% endblock %}
+{% block title %}课程机构列表 - 芙中学习网{% endblock %}
 {% load staticfiles %}
+
 {% block custom_bread %}
-    <section>
-        <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="/">首页</a>></li>
-                <li>公开课</li>
-            </ul>
-        </div>
-    </section>
+    <div class="nav-bottom">
+    	<div class="container"><a href="{% url 'index' %}">首页</a><span>&gt;</span><a href="">课程</a></div>
+    </div>
 {% endblock %}
 
 {% block content %}
-    <section>
-	<div class="wp">
-		<div class="list" style="margin-top:0;">
-			<div class="left layout">
-				<div class="head">
-					<ul class="tab_header">
-						<li {% if sort == '' %}class="active"{% endif %}><a href="?sort=">最新 </a></li>
+<div class="container clearfix">
+	<div class="pull-left zf-left-c">
+    	<div class="zf-left-c-border">
+            <div class="zf-top clearfix">
+            	<div class="pull-left">
+                	<ul class="chooise-list clearfix">
+                        <li {% if sort == '' %}class="active"{% endif %}><a href="?sort=">最新 </a></li>
 						<li {% if sort == 'hot' %}class="active"{% endif %}><a href="?sort=hot">最热门</a></li>
 						<li {% if sort == 'students' %}class="active"{% endif %}><a href="?sort=students">参与人数</a></li>
-					</ul>
-				</div>
-                <div id="inWindow">
-                    <div class="tab_cont " id="content">
-					<div class="group_list">
-                        {% for course in all_courses.object_list %}
-                            <div class="box">
-                                <a href="{% url 'course:course_detail' course.id %}">
-                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
-                                </a>
-                                <div class="des">
-                                    <a href="{% url 'course:course_detail' course.id %}">
-                                        <h2>{{ course.name }}</h2>
-                                    </a>
-                                    <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
-                                    <span class="fr">学习人数：{{ course.students }}&nbsp;&nbsp;</span>
-                                </div>
-                                <div class="bottom">
-                                    <a href="{% url 'course:course_detail' course.id %}"><span class="fl">来自{{ course.course_org.name }}</span></a>
-                                    <span class="star fr  notlogin
-                                        " data-favid="15">
-                                        {{ course.fav_nums }}
-                                    </span>
-                                </div>
-                            </div>
-                        {% endfor %}
+                    </ul>
+                </div>	
+                <div class="pull-right">共<span class="key">{{ org_nums }}</span>家授课机构</div>
+            </div>
+            <div class="row xq-list">
+            	{% for course in all_courses.object_list %}
+	        	<div class="col-md-4 col-sm-6">
+	            	<a href="{% url 'course:course_detail' course.id %}">
+	                	<div class="xq-img"><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
+	                    <div class="xq-txt">
+	                    	<div class="xq-tt-sm">{{ course.name }}</div>
+	                        <div class="pull-left">时长：<font color="red">{{ course.learn_times }}</font></div>
+	                        <div class="pull-right">学习人数：{{ course.students }}&nbsp;&nbsp;</div>
+	                    </div>
+	                </a>
+	                <div class="bottom">
+	                    <a href="{% url 'course:course_detail' course.id %}"><span class="fl">来自{{ course.course_org.name }}</span></a>
+	                    <span class="star fr  notlogin
+	                        " data-favid="15">
+	                        {{ course.fav_nums }}
+	                    </span>
+	                </div>
+	            </div>
 
+	           {% endfor %}
+            </div>
+            <div class="text-center">
+                <ul class="pagination">    
+                    {% if all_orgs.has_previous %}
+                	<li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}" aria-label="Previous"><i class="glyphicon glyphicon-triangle-left"></i></a></li>
+	                {% endif %}
+	
+	                {% for page in all_orgs.pages %}
+	                    {% if page %}
+	                        {% ifequal page all_orgs.number %}
+	                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+	                        {% else %}
+	                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+	                        {% endifequal %}
+	                    {% else %}
+	                        <li class="none"><a href="">...</a></li>
+	                    {% endif %}
+	                {% endfor %}
+	                {% if all_orgs.has_next %}
+	                    <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}" aria-label="Next"><i class="glyphicon glyphicon-triangle-right"></i></a></li>
+	                {% endif %}
 
-					</div>
-                    <div class="pageturn">
-                        <ul class="pagelist">
-                            {% if all_courses.has_previous %}
-                                <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}">上一页</a></li>
-                            {% endif %}
-
-                            {% for page in all_courses.pages %}
-                                {% if page %}
-                                    {% ifequal page all_courses.number %}
-                                        <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
-                                    {% else %}
-                                        <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-                                    {% endifequal %}
-                                {% else %}
-                                    <li class="none"><a href="">...</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if all_courses.has_next %}
-                                <li class="long"><a href="?{{ all_courses.next_page_number.querystring }}">下一页</a></li>
-                            {% endif %}
-
-                        </ul>
+                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="pull-left zf-right-c">
+    	<div class="zf-top">推荐机构</div>
+        <ul class="zf-list-b">
+        	{% for curent_org1 in hot_orgs %} 
+        	<li>    
+        		<!--不知道为什么就是不能使用获得curent_org1.id .image 数据-->
+            	<a href="">
+                	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ course_org1.image }}"></div>
+                    <div class="right-money">{{ curent_org1.name }}{{course_org1.id}}</div>
+                    <div class="right-txt">
+                    	<p>{{ curent_org1.address }}</p>
+                        <div> </div>
                     </div>
-				</div>
-                </div>
-			</div>
-			<div class="right layout">
-				<div class="head">热门课程推荐</div>
-				<div class="group_recommend">
-                    {% for hot_course in hot_courses %}
-                    <dl>
-						<dt>
-							<a target="_blank" href="{{ ecmall_ad.url }}">
-								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_course.image }}"/>
-							</a>
-						</dt>
-						<dd>
-							<a target="_blank" href="{{ ecmall_ad.url }}"><h2> {{ hot_course.name }}</h2></a>
-							<span class="fl">难度：<i class="key">{{ hot_course.get_degree_display }}</i></span>
-						</dd>
-					</dl>
-                    {% endfor %}
+                </a>
+            </li>
+        	{% endfor %}
 
-
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+        </ul>
+    </div>
+</div>
 {% endblock %}
 
+{% block custom_js %}
+{% endblock %}
