@@ -49,6 +49,16 @@ a:hover,a:focus{ text-decoration:none !important;}
     color: #fb8341 !important;
     font-size: 14px ; 
 }
+.tab-c{ background:#fff; border:solid 1px #e9e9e9; transition:0.5s all; display:block;}
+.tab-txt{ padding:30px 18px 50px 18px; border-bottom:solid 3px #fff; transition:0.5s all;}
+.tab-tt{ font-size:18px; color:#333; transition:0.5s all;}
+.tab-article{ font-size:15px; color:#666; line-height:25px;}
+.tab-c:hover{box-shadow: 1px 3px 10px #e9e9e9;}
+.tab-c:hover .tab-txt{ border-color:#31b4fd;}
+.tab-c:hover .tab-tt{ color:#31b4fd;}
+.tab-c figure{ overflow:hidden;}
+.tab-c figure img{ transition:1s all;}
+.tab-c:hover figure img{ transform:scale(1.1,1.1);}
 /***模拟下拉菜单***/
 .mod_select ul{margin:0;padding:0;}
 .mod_select ul li{list-style-type:none;float:left;margin-left:20px;height:24px;}
@@ -77,6 +87,8 @@ a:hover,a:focus{ text-decoration:none !important;}
 .img-list{ margin:0 -11px;}
 .img-list-img{ width:100%; height:180px;}
 .img-list-img img{ width:100%; height:100%;}
+.img-list-img-teacher{ width:100%; height:270px;}
+.img-list-img-teacher img{ width:100%; height:100%;}
 .img-list a{ display:block;}
 .img-list a:hover{ color:#000;}
 .img-list a:hover img{ opacity:0.9;}
@@ -478,6 +490,7 @@ hr{ margin:40px 0;}
 @media (max-width: 1199px) {
 	.container{ width:970px;}
 	.img-list-img{ height:138px;}
+    .img-list-img-teacher{ height:138px;}
 	.navbar-default{ margin-left:10px;}
 	.img-sm,.img-lg{ height:246px;}
 	.img-md,.img-xs{ height:322px;}
@@ -508,6 +521,7 @@ hr{ margin:40px 0;}
 @media (max-width: 991px) {
 	.container{ width:750px;}
 	.img-list-img{ height:220px;}
+    .img-list-img-teacher{ height:220px;}
 	.img-lg{ width:100%; height:auto;}
 	.img-sm{ width:50%; height:auto;}
 	.img-sm a,.img-xs a{ width:100%;}
@@ -591,6 +605,7 @@ hr{ margin:40px 0;}
 	.search-c{ margin-top:0;}
 	.title{ padding-top:20px; margin-bottom:20px;}
 	.img-list-img img,.img-list-img{ height:auto;}
+    .img-list-img-teacher img,.img-list-img-teacher{ height:auto;}
 	.img-list .col-md-3{ margin-bottom:20px;}
 	.mask{ display:none; transform:translate(0,0);}
 	.img-sm{ width:100%; padding-left:0;}
@@ -702,6 +717,7 @@ hr{ margin:40px 0;}
 	.qj-img{ margin-top:15px;}
 	.qj-img02{ margin-top:0;}
 	.modal-dialog{ width:auto; height:auto; position:relative; margin:150px 10px 0 10px; left:0;}
+    .tab-c{ margin-bottom:20px;}
 	
 }
 @media (max-width: 374px) {

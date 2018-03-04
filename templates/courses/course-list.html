@@ -24,16 +24,18 @@
             </div>
             <div class="row xq-list" style="margin: 5px;">
             	{% for course in all_courses.object_list %}
-	        	<div class="col-md-4 col-sm-6" style="margin: 0px;padding: 3px;">
-                    <a href="{% url 'course:course_detail' course.id %}">
-                        <div class="img-list-img"><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
-                        <div class="img-money">{{ course.name }}</div>
-                        <div class="img-name">
-                        	<span class="pull-left">时长：<i style="color: #fb8341;"><font size="5">{{ course.learn_times }}</font></i></span>
-                            <span class="pull-right">学习人数：<i style="color: #fb8341;"><font size="5">{{ course.students }}&nbsp;&nbsp;</font></i></span>
+                <div class="col-sm-4" style="margin: 0px;padding: 3px;">
+                	<a href="{% url 'course:course_detail' course.id %}" class="tab-c">
+                    	<figure class="img-list-img"><img src="{{ MEDIA_URL }}{{ course.image }}" width="100%"></figure>
+                        <div class="tab-txt">
+                        	<p class="tab-tt">{{ course.name }}</p>
+                            <p class="tab-article">
+                            	<span class="pull-left">时长：<i style="color: #fb8341;"><font size="5">{{ course.learn_times }}</font></i></span>
+                            	<span class="pull-right">学习人数：<i style="color: #fb8341;"><font size="5">{{ course.students }}&nbsp;&nbsp;</font></i></span>
+                            </p>
                         </div>
-
-	            </div>
+                    </a>
+                </div>
 	           {% endfor %}
             </div>
             <div class="text-center">
@@ -74,6 +76,7 @@
                         <div> </div>
                     </div>
                 </a>
+                
             </li>
         	{% endfor %}
 
