@@ -1,179 +1,145 @@
 {% extends 'base.html' %}
-{% block title %}讲师详情 - 芙中学习网{% endblock %}
+{% block title %}课程机构列表 - 芙中学习网{% endblock %}
 {% load staticfiles %}
+
 {% block custom_bread %}
-    <section>
-        <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="/">首页</a>></li>
-                <li><a href="{% url 'org:teacher_list' %}">授课讲师</a>></li>
-                <li>讲师详情</li>
-            </ul>
-        </div>
-    </section>
+    <div class="nav-bottom">
+    	<div class="container"><a href="{% url 'index' %}">首页</a><span>&gt;</span><a href="{% url 'org:teacher_list' %}">课程讲师</a>>讲师详情</div>
+    </div>
 {% endblock %}
+
 {% block content %}
-    <section>
-	<div class="wp butler-detail-box butler-diaryd-box clearfix">
-        <div class="fl list">
-            <div class="butler_detail_list clearfix">
-                <div class="brief">
-                    <dl class="des">
-                        <dt>
-                            <div class="picpic">
-                                <img width="100" height="100" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
-                            </div>
-                            <div class="btn">
-                                <span class="fl btn1 collectionbtn" id="jsLeftBtn">
-                                     {% if has_teacher_faved %}已收藏{% else %}收藏{% endif %}
-                                </span>
-                                <span class="fr btn2 shareBtn bdsharebuttonbox"
-                                      data-text="授课教师-李老师-慕学网"
-                                      data-desc="我在#慕课网#发现了"
-                                      data-comment="李老师，工作年限：5年；学历：本科；所在公司：阿里巴巴&nbsp;；经典案例：django入门和深入；flask入门"
-                                      data-url="/diary/hk_detail/10/">
-                                    <span class="fl">分享</span>
-                                    <a href="#" class="bds_more" data-cmd="more"></a>
-                                </span>
-                            </div>
-                        </dt>
-                        <dd>
-                            <a href="/diary/hk_detail/10/">
-                                <h1>{{ teacher.name }}<span class="key picbig">金牌讲师</span></h1>
-                            </a>
-                            <ul class="cont">
-                                <li>工作年限：<span>{{ teacher.work_years }}年</span></li>
-                                <li>就职公司：<span>{{ teacher.work_company }}</span></li>
-                                <li>工作职位：<span>{{ teacher.work_position }}&nbsp;</span></li>
-                                <li>教学特点：<span>{{ teacher.points }}</span></li>
-                            </ul>
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-            <div class="butler_detail_cont clearfix">
-                <div class="left layout">
-				<div class="head">
-					<ul class="tab_header">
-						<li class="active"><a href="/diary/hk_detail/10/">全部课程</a> </li>
-					</ul>
-				</div>
-                    <div class="companycenter">
-                        <div class="group_list brief">
-                            {% for teacher_course in all_courses %}
-                            <div class="module1_5 box">
-                                <a href="{% url 'course:course_detail' teacher_course.id %}">
-                                    <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ teacher_course.image }}"/>
-                                </a>
-                                <div class="des">
-                                    <a href="{% url 'course:course_detail' teacher_course.id %}"><h2>{{ teacher_course.name }}</h2></a>
-                                    <span class="fl">时长：<i class="key">{{ teacher_course.learn_times }}</i></span>
-                                    <span class="fr">学习人数：{{ teacher_course.students }}</span>
-                                </div>
-                                <div class="bottom">
-                                    <span class="fl">{{ teacher_course.course_org.name }}</span>
-                                    <span class="star fr  notlogin" data-favid="15">{{ teacher_course.fav_nums }}</span>
-                                </div>
-                            </div>
-                            {% endfor %}
 
-                        </div>
-                    </div>
-                <!--<div class="pageturn">-->
-                    <!--<ul class="pagelist">-->
-                        <!--<li class="active"><a href="?page=1">1</a></li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            </div>
-            </div>
-        </div>
-        <div class="fr list">
-             <div class="butler_detail_list">
-                <div class="right butler-company-box">
-                <div class="head">
-                    <h1>{{ teacher.org.name }}</h1>
-                    <p>知名高校，权威教学</p>
+    <div class="container clearfix">
+		<div class="pull-left zf-left-c">
+			<div class="zf-border">
+		    	<div class="clearfix">
+		        	<div class="pull-left">机构类别：</div>
+		            <ul class="zf-list clearfix">
+		            	<li><a href="?city={{ city_id }}"><span class="{% ifequal category '' %}active2{% endifequal %}">全部</span></a></li>
+		                <li><a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}active2{% endifequal %}">培训机构</span></a></li>
+		                <li><a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}active2{% endifequal %}">高校</span></a></li>
+		                <li><a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}active2{% endifequal %}">个人</span></a></li>
+		            </ul>
+		        </div>
+		    	<div class="clearfix">
+		        	<div class="pull-left">所在地区：</div>
+		            <ul class="zf-list clearfix">
+		            	<li><a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">全部</span></a></li>
+		                {% for city in all_citys %}
+		                    <li><a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:"i" %}active2{% endifequal %}">{{ city.name }}</span></a></li>
+		                {% endfor %}
+		            </ul>
+		      	</div>
+		    </div>
+        	<div class="zf-left-c-border">
+                <div class="zf-top clearfix">
+                	<div class="pull-left">
+                    	<ul class="chooise-list clearfix">
+                            <li class="{% if sort == '' %}active{% endif %}"><a href="?ct={{ category }}&city={{ city_id }}">最新发布</a> </li>
+							<li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students&ct={{ category }}&city={{ city_id }}">学习人数 &#8595;</a></li>
+							<li class="{% if sort == 'courses' %}active{% endif %}"><a href="?sort=courses&ct={{ category }}&city={{ city_id }}">课程数 &#8595;</a></li>
+				
+                        </ul>
+                    </div>	
+                    <div class="pull-right"></div>
                 </div>
-                <div class="pic">
-                    <a href="{% url 'org:org_home' teacher.org.id %}">
-                        <img width="150" height="80" src="{{ MEDIA_URL }}{{ teacher.org.image }}"/>
-                    </a>
-                </div>
-                <a href="{% url 'org:org_home' teacher.org.id %}">
-                    <h2 class="center">{{ teacher.org.name }}</h2>
-                </a>
-                <p class="center tell">地址：{{ teacher.org.address }}</p>
-                <a class="btn" id="jsRightBtn">{% if has_org_faved %}已收藏{% else %}收藏{% endif %}</a>
-            </div>
-            </div>
-            <div class="butler_detail_cont">
-                <div class="butler_list_box">
-                    <div class="right layout">
-                        <div class="head">讲师排行榜</div>
-                        {% for hot_teacher in sorted_teacher %}
-                        <dl class="des">
-                            <span class="num fl">1</span>
-                            <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
-                                <dt>
-                                    <img width="50" height="50" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_teacher.image }}"/>
-                                </dt>
-                            </a>
-                            <dd>
-                                <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
-                                    <h1 title="{{ hot_teacher.name }}">{{ hot_teacher.name }}</h1>
-                                </a>
-                                <p>工作年限：<span>{{ hot_teacher.work_years }}年</span></p>
-                            </dd>
-                        </dl>
-                        {% endfor %}
+                <ul class="zf-list-b">
+                	{% for course_org in all_orgs.object_list %}
+                	<li>
+                    	<a href="{% url 'org:org_home' course_org.id %}" class="clearfix">
+                        	<div class="pull-left zf-img"><img src="{{ MEDIA_URL }}{{ course_org.image }}"></div>
+                            <div class="pull-left zf-img-right">
+                            	<div class="zf-tt">
+                            		<h2>{{ course_org.name }}</h2>
+                            	    <div class="pic fl">
+                                         <img src="{% static 'images/authentication.png' %}"/>
+                                         <img src="{% static 'images/gold.png' %}"/>
+                                 	</div>
+                            	</div>
+                                <div class="zf-txt">
+									<p class="pic9"><span class="glyphicon glyphicon-book"></span>&nbsp;课程数：<span>1</span></p><p class="c7"><span class="glyphicon glyphicon-file"></span>&nbsp;学习人数：<span>1000</span></p>
+                                </div>
+                                <div class="label-span">经典课程名、此处</div>
+                                <div class="money">联系我们</div>
+                            </div>
+                            
+                        </a>
+                    </li>
+                    {% endfor %}
 
-                    </div>
+                </ul>
+                <div class="text-center">
+                    <ul class="pagination">    
+                        {% if all_orgs.has_previous %}
+                    	<li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}" aria-label="Previous"><i class="glyphicon glyphicon-triangle-left"></i></a></li>
+		                {% endif %}
+		
+		                {% for page in all_orgs.pages %}
+		                    {% if page %}
+		                        {% ifequal page all_orgs.number %}
+		                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+		                        {% else %}
+		                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+		                        {% endifequal %}
+		                    {% else %}
+		                        <li class="none"><a href="">...</a></li>
+		                    {% endif %}
+		                {% endfor %}
+		                {% if all_orgs.has_next %}
+		                    <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}" aria-label="Next"><i class="glyphicon glyphicon-triangle-right"></i></a></li>
+		                {% endif %}
+
+                     </ul>
                 </div>
             </div>
         </div>
-	</div>
-</section>
+        <div class="pull-left zf-right-c" style="border: 0px;">
+        	<div class="zf-left-c-border">  
+	        	<div class="zf-top">推荐机构</div>
+	            <ul class="zf-list-b">
+	            	{% for hot_org in hot_orgs %} 
+	            	<li>    
+	            		<!--  不知道为什么就是不能使用获得curent_org1.id .image 数据
+	            			发现原来必须用 hot_org。  汗
+	            		-->
+	                	<a href="{% url 'org:org_home' hot_org.id %}">
+	                    	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_org.image }}"></div>
+	                        <div class="right-money">{{ hot_org.name }}{{hot_org.id}}</div>
+	                        <div class="right-txt">
+	                        	<p><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{{ hot_org.address }}</p>
+	                            <div> </div>
+	                        </div>
+	                    </a>
+	                </li>
+	            	{% endfor %}
+	
+	            </ul>
+           </div>
+            <div class="zf-left-c-border " style="margin-top: 20px;">     	
+            	<div class="zf-top">推荐机构</div>
+	            <ul class="zf-list-b">
+	            	{% for hot_org in hot_orgs %} 
+	            	<li>    
+	            		<!--  不知道为什么就是不能使用获得curent_org1.id .image 数据
+	            			发现原来必须用 hot_org。  汗
+	            		-->
+	                	<a href="{% url 'org:org_home' hot_org.id %}">
+	                    	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_org.image }}"></div>
+	                        <div class="right-money">{{ hot_org.name }}{{hot_org.id}}</div>
+	                        <div class="right-txt">
+	                        	<p><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{{ hot_org.address }}</p>
+	                            <div> </div>
+	                        </div>
+	                    </a>
+	                </li>
+	            	{% endfor %}
+	
+	            </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
 
 {% block custom_js %}
-<script type="text/javascript">
-//收藏分享
-function add_fav(current_elem, fav_id, fav_type){
-    $.ajax({
-        cache: false,
-        type: "POST",
-        url:"{% url "org:add_fav" %}",
-        data:{'fav_id':fav_id, 'fav_type':fav_type},
-        async: true,
-        beforeSend:function(xhr, settings){
-            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-        },
-        success: function(data) {
-            if(data.status == 'fail'){
-                if(data.msg == '用户未登录'){
-                    window.location.href="/login/";
-                }else{
-                    alert(data.msg)
-                }
-
-            }else if(data.status == 'success'){
-                current_elem.text(data.msg)
-            }
-        },
-    });
-}
-
-$('#jsLeftBtn').on('click', function(){
-    add_fav($(this), {{ teacher.id }}, 3);
-});
-
-$('#jsRightBtn').on('click', function(){
-    add_fav($(this), {{ teacher.org.id }}, 2);
-});
-
-
-</script>
-
 {% endblock %}
-

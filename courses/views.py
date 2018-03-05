@@ -41,8 +41,11 @@ class CourseListView(View):
 
         courses = p.page(page)
 
+        course_nums = all_courses.count()
+
         return render(request, 'courses/course-list.html', {
             "all_courses":courses,
+            "course_nums": course_nums,
             "sort":sort,
             "hot_courses":hot_courses
         })

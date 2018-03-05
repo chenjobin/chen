@@ -20,7 +20,7 @@
 						<li {% if sort == 'students' %}class="active"{% endif %}><a href="?sort=students">参与人数</a></li>
                     </ul>
                 </div>	
-                <div class="pull-right">共<span class="key">{{ org_nums }}</span>家授课机构</div>
+                <div class="pull-right">共<span class="key"><font size="5">{{ course_nums }}</font></span>门课程</div>
             </div>
             <div class="row xq-list" style="margin: 5px;">
             	{% for course in all_courses.object_list %}

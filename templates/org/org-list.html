@@ -9,30 +9,28 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-        <div class="zf-border">
-        	<div class="clearfix">
-            	<div class="pull-left">机构类别：</div>
-                <ul class="zf-list clearfix">
-                	<li><a href="?city={{ city_id }}"><span class="{% ifequal category '' %}active2{% endifequal %}">全部</span></a></li>
-                    <li><a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}active2{% endifequal %}">培训机构</span></a></li>
-                    <li><a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}active2{% endifequal %}">高校</span></a></li>
-                    <li><a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}active2{% endifequal %}">个人</span></a></li>
-                </ul>
-            </div>
-        	<div class="clearfix">
-            	<div class="pull-left">所在地区：</div>
-                <ul class="zf-list clearfix">
-                	<li><a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">全部</span></a></li>
-                    {% for city in all_citys %}
-                        <li><a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:"i" %}active2{% endifequal %}">{{ city.name }}</span></a></li>
-                    {% endfor %}
-                </ul>
-          </div>
-        </div>
-   </div>
     <div class="container clearfix">
 		<div class="pull-left zf-left-c">
+			<div class="zf-border">
+	        	<div class="clearfix">
+	            	<div class="pull-left">机构类别：</div>
+	                <ul class="zf-list clearfix">
+	                	<li><a href="?city={{ city_id }}"><span class="{% ifequal category '' %}active2{% endifequal %}">全部</span></a></li>
+	                    <li><a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}active2{% endifequal %}">培训机构</span></a></li>
+	                    <li><a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}active2{% endifequal %}">高校</span></a></li>
+	                    <li><a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}active2{% endifequal %}">个人</span></a></li>
+	                </ul>
+	            </div>
+	        	<div class="clearfix">
+	            	<div class="pull-left">所在地区：</div>
+	                <ul class="zf-list clearfix">
+	                	<li><a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">全部</span></a></li>
+	                    {% for city in all_citys %}
+	                        <li><a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:"i" %}active2{% endifequal %}">{{ city.name }}</span></a></li>
+	                    {% endfor %}
+	                </ul>
+	            </div>
+	        </div>
         	<div class="zf-left-c-border">
                 <div class="zf-top clearfix">
                 	<div class="pull-left">
