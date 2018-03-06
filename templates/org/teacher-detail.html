@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}课程机构列表 - 芙中学习网{% endblock %}
+{% block title %}讲师详情 - 芙中学习网{% endblock %}
 {% load staticfiles %}
 
 {% block custom_bread %}
@@ -14,132 +14,148 @@
 		<div class="pull-left zf-left-c">
 			<div class="zf-border">
 		    	<div class="clearfix">
-		        	<div class="pull-left">机构类别：</div>
-		            <ul class="zf-list clearfix">
-		            	<li><a href="?city={{ city_id }}"><span class="{% ifequal category '' %}active2{% endifequal %}">全部</span></a></li>
-		                <li><a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}active2{% endifequal %}">培训机构</span></a></li>
-		                <li><a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}active2{% endifequal %}">高校</span></a></li>
-		                <li><a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}active2{% endifequal %}">个人</span></a></li>
-		            </ul>
+		        	<div class="pull-left">
+		        		<img width="100" height="100" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
+		        		<br><br>
+		        		<button class="btn btn-info" type="submit">
+			        		<span class="glyphicon glyphicon-heart" id="jsLeftBtn">
+	                            {% if has_teacher_faved %}已收藏{% else %}收藏{% endif %}&nbsp;
+	                        </span>
+                        </button>
+		        	</div>
+		        	<div class="pull-left col-sm-1">
+		        	</div>		        	
+		        	<div class="pull-left">
+		        		<h3>{{ teacher.name }}&nbsp;&nbsp;&nbsp;&nbsp;<img src="{% static 'images/gold.png' %}">&nbsp;<span class="key picbig" style="vertical-align: middle;">金牌讲师</span></h3>
+						<ul class="">
+                            <li>工作年限：<span>{{ teacher.work_years }}年</span></li>
+                            <li>就职公司：<span>{{ teacher.work_company }}</span></li>
+                            <li>工作职位：<span>{{ teacher.work_position }}&nbsp;</span></li>
+                            <li>教学特点：<span>{{ teacher.points }}</span></li>
+                        </ul>
+		        	</div>
+
 		        </div>
-		    	<div class="clearfix">
-		        	<div class="pull-left">所在地区：</div>
-		            <ul class="zf-list clearfix">
-		            	<li><a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">全部</span></a></li>
-		                {% for city in all_citys %}
-		                    <li><a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:"i" %}active2{% endifequal %}">{{ city.name }}</span></a></li>
-		                {% endfor %}
-		            </ul>
-		      	</div>
+
 		    </div>
         	<div class="zf-left-c-border">
                 <div class="zf-top clearfix">
                 	<div class="pull-left">
                     	<ul class="chooise-list clearfix">
-                            <li class="{% if sort == '' %}active{% endif %}"><a href="?ct={{ category }}&city={{ city_id }}">最新发布</a> </li>
-							<li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students&ct={{ category }}&city={{ city_id }}">学习人数 &#8595;</a></li>
-							<li class="{% if sort == 'courses' %}active{% endif %}"><a href="?sort=courses&ct={{ category }}&city={{ city_id }}">课程数 &#8595;</a></li>
-				
+                            <li class="active"><a >全部课程 </a></li>
                         </ul>
                     </div>	
                     <div class="pull-right"></div>
                 </div>
-                <ul class="zf-list-b">
-                	{% for course_org in all_orgs.object_list %}
-                	<li>
-                    	<a href="{% url 'org:org_home' course_org.id %}" class="clearfix">
-                        	<div class="pull-left zf-img"><img src="{{ MEDIA_URL }}{{ course_org.image }}"></div>
-                            <div class="pull-left zf-img-right">
-                            	<div class="zf-tt">
-                            		<h2>{{ course_org.name }}</h2>
-                            	    <div class="pic fl">
-                                         <img src="{% static 'images/authentication.png' %}"/>
-                                         <img src="{% static 'images/gold.png' %}"/>
-                                 	</div>
-                            	</div>
-                                <div class="zf-txt">
-									<p class="pic9"><span class="glyphicon glyphicon-book"></span>&nbsp;课程数：<span>1</span></p><p class="c7"><span class="glyphicon glyphicon-file"></span>&nbsp;学习人数：<span>1000</span></p>
-                                </div>
-                                <div class="label-span">经典课程名、此处</div>
-                                <div class="money">联系我们</div>
-                            </div>
-                            
-                        </a>
-                    </li>
-                    {% endfor %}
-
-                </ul>
-                <div class="text-center">
-                    <ul class="pagination">    
-                        {% if all_orgs.has_previous %}
-                    	<li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}" aria-label="Previous"><i class="glyphicon glyphicon-triangle-left"></i></a></li>
-		                {% endif %}
-		
-		                {% for page in all_orgs.pages %}
-		                    {% if page %}
-		                        {% ifequal page all_orgs.number %}
-		                            <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
-		                        {% else %}
-		                            <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-		                        {% endifequal %}
-		                    {% else %}
-		                        <li class="none"><a href="">...</a></li>
-		                    {% endif %}
-		                {% endfor %}
-		                {% if all_orgs.has_next %}
-		                    <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}" aria-label="Next"><i class="glyphicon glyphicon-triangle-right"></i></a></li>
-		                {% endif %}
-
-                     </ul>
-                </div>
+	            <div class="row xq-list" style="margin: 5px;">
+					{% for teacher_course in all_courses %}
+	                <div class="col-sm-4" style="margin: 0px;padding: 3px;">
+	                	<a href="{% url 'course:course_detail' teacher_course.id %}" class="tab-c">
+	                    	<figure class="img-list-img"><img src="{{ MEDIA_URL }}{{ teacher_course.image }}" width="100%"></figure>
+	                        <div class="tab-txt">
+	                        	<p class="tab-tt">{{ teacher_course.name }}</p>
+	                            <p class="tab-article">
+	                            	<span class="pull-left">时长：<i style="color: #fb8341;"><font size="5">{{ teacher_course.learn_times }}</font></i></span>
+	                            	<span class="pull-right">学习人数：<i style="color: #fb8341;"><font size="5">{{ teacher_course.students }}&nbsp;&nbsp;</font></i></span>
+	                            </p>
+	                        </div>
+	                    </a>
+	                </div>
+	                {% empty %}
+	                   	暂无相关课程
+					{% endfor %}
+	            </div>
             </div>
         </div>
         <div class="pull-left zf-right-c" style="border: 0px;">
         	<div class="zf-left-c-border">  
-	        	<div class="zf-top">推荐机构</div>
-	            <ul class="zf-list-b">
-	            	{% for hot_org in hot_orgs %} 
-	            	<li>    
-	            		<!--  不知道为什么就是不能使用获得curent_org1.id .image 数据
-	            			发现原来必须用 hot_org。  汗
-	            		-->
-	                	<a href="{% url 'org:org_home' hot_org.id %}">
-	                    	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_org.image }}"></div>
-	                        <div class="right-money">{{ hot_org.name }}{{hot_org.id}}</div>
-	                        <div class="right-txt">
-	                        	<p><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{{ hot_org.address }}</p>
-	                            <div> </div>
-	                        </div>
+	        	<div class="zf-top">
+	        		{{ teacher.org.name }}
+	        	</div>
+	        	<div align="center">
+	        		<br />
+	        		<div class="">
+	                    <a href="{% url 'org:org_home' teacher.org.id %}">
+	                        <img width="150" height="80" src="{{ MEDIA_URL }}{{ teacher.org.image }}"/>
 	                    </a>
-	                </li>
-	            	{% endfor %}
+	                </div>
+	                <div class="">
+	                	<h3>{{ teacher.org.name }}</h3>
+						<ul class="">
+                            <li>地址：{{ teacher.org.address }}</li>
+                            <li>&nbsp;</li>
+                            <li>
+                            	<a class="btn btn-info glyphicon glyphicon-heart" id="jsRightBtn">{% if has_org_faved %}&nbsp;已收藏{% else %}&nbsp;收藏{% endif %}</a>
+                            </li>
+                        </ul>
+	                </div>
+	        	</div>
+	            <ul class="zf-list-b">
+
 	
 	            </ul>
            </div>
             <div class="zf-left-c-border " style="margin-top: 20px;">     	
-            	<div class="zf-top">推荐机构</div>
-	            <ul class="zf-list-b">
-	            	{% for hot_org in hot_orgs %} 
-	            	<li>    
-	            		<!--  不知道为什么就是不能使用获得curent_org1.id .image 数据
-	            			发现原来必须用 hot_org。  汗
-	            		-->
-	                	<a href="{% url 'org:org_home' hot_org.id %}">
-	                    	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_org.image }}"></div>
-	                        <div class="right-money">{{ hot_org.name }}{{hot_org.id}}</div>
-	                        <div class="right-txt">
-	                        	<p><span class="glyphicon glyphicon-map-marker"></span>&nbsp;{{ hot_org.address }}</p>
-	                            <div> </div>
-	                        </div>
-	                    </a>
-	                </li>
+            	<div class="zf-top">讲师排行榜</div>
+            	<div align="">
+	            	{% for hot_teacher in sorted_teacher %}
+ 						<a href="{% url 'org:teacher_detail' hot_teacher.id %}">
+						<div class="col-sm-3">
+							<img src="{{ MEDIA_URL }}{{ hot_teacher.image }}" height="50" width="50" style="margin-top: 20px;"/>
+						</div>
+						<div class="col-sm-8">
+							<h3>{{ hot_teacher.name }}&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+							工作年限：<span>{{ hot_teacher.work_years }}年</span>
+						</div>
+						</a>
 	            	{% endfor %}
+	        	</div>
+	            <ul class="zf-list-b">
 	
 	            </ul>
+	            <br><br><br><br><br><br><br><br><br><br><br>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block custom_js %}
+<script type="text/javascript">
+//收藏分享
+function add_fav(current_elem, fav_id, fav_type){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"{% url "org:add_fav" %}",
+        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == '用户未登录'){
+                    window.location.href="/login/";
+                }else{
+                    alert(data.msg)
+                }
+
+            }else if(data.status == 'success'){
+                current_elem.text(data.msg)
+            }
+        },
+    });
+}
+
+$('#jsLeftBtn').on('click', function(){
+    add_fav($(this), {{ teacher.id }}, 3);
+});
+
+$('#jsRightBtn').on('click', function(){
+    add_fav($(this), {{ teacher.org.id }}, 2);
+});
+
+
+</script>
+
 {% endblock %}
