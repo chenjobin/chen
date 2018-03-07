@@ -14,15 +14,15 @@
     <div class="banner">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         	<ol class="carousel-indicators">
-		        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-		        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-		        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        		{% for banner in all_banners %}
+		        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}" class="{% if forloop.counter == 1 %}active{% endif %}"></li>
+		        {% endfor %}
 		    </ol>   
           <!-- Wrapper for slides 轮播 项目-->
           <div class="carousel-inner" role="listbox">
-            <div class="item"><img src="static/images/jiaochengBanner.jpg" alt="..."></div>
-            <div class="item active"><img src="static/images/jiaochengBanner1.jpg" alt="..."></div>
-            <div class="item"><img src="static/images/jiaochengBanner.jpg" alt="..."></div>
+          	{% for banner in all_banners %}
+          		<div class="item {% if forloop.counter == 1 %}active{% endif %}"><a href="{{ banner.url }}"><img src="{{ MEDIA_URL }}{{ banner.image }}"></a></div>     	
+            {% endfor %}
           </div>
           <!-- Controls 轮播导航 -->
           <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -37,58 +37,56 @@
             <div class="lind"></div>
             <div class="title-sm text-center">我们致力于为学习者打造高质量的课程资源</div>
             <div class="clearfix img-c">
-            	<a class="img-md" href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E7%AB%8B%E5%8D%B3%E6%89%BE%E6%88%BF-%E8%AF%A6%E7%BB%86.html">
-                	<div><img src="static/images/12.jpg"></div>
+            	{% for course in courses %}
+            		{% if forloop.counter == 1 %}
+            	<a class="img-md" href="{% url 'course:course_detail' course.id %}">
+                	<div><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
                         <div class="mask">
                         	<div class="mask-txt-c">
-                                <div class="mask-tt">每周特222惠</div>
-                                <div class="mask-txt">月租最高直降3000</div>
+                                <div class="mask-tt">{{ course.name }}</div>
+                                <div class="mask-txt">难度：{{ course.get_degree_display }}</div>
                             </div>
                         </div>
                 </a>
+                	{% endif %}
+                	{% if forloop.counter == 2 %}
                 <div class="img-xs pull-left">
-                    <a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E7%AB%8B%E5%8D%B3%E6%89%BE%E6%88%BF-%E8%AF%A6%E7%BB%86.html">
-                        <div><img src="static/images/13.jpg"></div>
+                    <a href="{% url 'course:course_detail' course.id %}">
+                        <div><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
                         <div class="mask">
                         	<div class="mask-txt-c">
-                                <div class="mask-tt">每周特惠</div>
-                                <div class="mask-txt">月租最高直3141降3000</div>
+                                <div class="mask-tt">{{ course.name }}</div>
+                                <div class="mask-txt">难度：{{ course.get_degree_display }}</div>
                             </div>
                         </div>
                     </a>
                 </div>
-                <a class="img-lg" href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E7%AB%8B%E5%8D%B3%E6%89%BE%E6%88%BF-%E8%AF%A6%E7%BB%86.html">
-                	<div><img src="static/images/09.jpg"></div>
+                	{% endif %}
+                	{% if forloop.counter == 3 %}
+                <a class="img-lg" href="{% url 'course:course_detail' course.id %}">
+                	<div><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
                         <div class="mask">
                         	<div class="mask-txt-c">
-                                <div class="mask-tt">每周特惠</div>
-                                <div class="mask-txt">月租最高直降3000</div>
+                                <div class="mask-tt">{{ course.name }}</div>
+                                <div class="mask-txt">难度：{{ course.get_degree_display }}</div>
                             </div>
                         </div>
                 </a>
+                    {% endif %}
+                	{% if forloop.counter == 4 or forloop.counter == 5 %}
                 <div class="img-sm pull-left">
-                    <a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E7%AB%8B%E5%8D%B3%E6%89%BE%E6%88%BF-%E8%AF%A6%E7%BB%86.html">
-                        <div><img src="static/images/10.jpg"></div>
+                    <a href="{% url 'course:course_detail' course.id %}">
+                        <div><img src="{{ MEDIA_URL }}{{ course.image }}"></div>
                         <div class="mask">
                         	<div class="mask-txt-c">
-                                <div class="mask-tt">每周特惠</div>
-                                <div class="mask-txt">月租最高直降3000</div>
+                                <div class="mask-tt">{{ course.name }}</div>
+                                <div class="mask-txt">难度：{{ course.get_degree_display }}</div>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="img-sm pull-left">
-                    <a href="http://www.nnhlsj.com/%E5%BE%AE%E8%88%8D/%E7%AB%8B%E5%8D%B3%E6%89%BE%E6%88%BF-%E8%AF%A6%E7%BB%86.html">
-                        <div><img src="static/images/11.jpg"></div>
-                        <div class="mask">
-                        	<div class="mask-txt-c">
-                                <div class="mask-tt">每周特惠</div>
-                                <div class="mask-txt">月租最高直降3000</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
+					{% endif %}
+			{% endfor %}
             </div>
         </div>
     </div>
