@@ -1,155 +1,85 @@
 {% extends 'base.html' %}
-{% block title %}公开课列表 - 芙中学习网y{% endblock %}
+{% block title %}课程详情 - 芙中学习网{% endblock %}
 {% load staticfiles %}
+
 {% block custom_bread %}
-    <section>
-	<div class="wp">
-		<div class="crumbs">
-			<ul>
-				<li><a href="/">首页</a>></li>
-                <li><a href="{% url 'course:course_list' %}">公开课程</a>></li>
-				<li>课程详情</li>
-			</ul>
-		</div>
-	</div>
-</section>
+    <div class="nav-bottom">
+    	<div class="container"><a href="{% url 'index' %}">首页</a><span>&gt;</span>
+    		<a href="{% url 'course:course_list' %}">课程</a></a><span>&gt;</span>课程详情</div>
+    </div>
 {% endblock %}
 
-
 {% block content %}
-    <section>
-	<div class="wp">
-		<div class="groupPurchase_detail detail">
-			<div class="toppro">
-				<div class="left">
-					<div class="picbox">
-						<div class="tb-booth tb-pic">
-							<img width="440" height="445" src="{{ MEDIA_URL }}{{ course.image }}" class="jqzoom" />
-						</div>
-
-					</div>
-					<div class="des">
-						<h1 title="django 从入门到精通体验开始了">{{ course.name }}</h1>
-						<span class="key">{{ course.desc }}</span>
-						<div class="prize">
-							<span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
-							<span class="fr">学习人数：{{ course.students }}</span>
-						</div>
-						<ul class="parameter">
-							<li><span class="pram word3">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span><span>{{ course.learn_times }}</span></li>
-                            <li><span class="pram word3">章&nbsp;节&nbsp;数：</span><span>{{ course.get_zj_nums }}</span></li>
-                            <li><span class="pram word3">课程类别：</span><span title="">{{ course.category }}</span></li>
-							<li class="piclist"><span class="pram word4">学习用户：</span>
-                                {% for user_course in course.get_learn_users %}
+	<div class="container zf-more">
+    	<div class="clearfix">
+        	<div class="pull-left">
+				<img class="sp-image img-responsive center-block" src="{{ MEDIA_URL }}{{ course.image }}">   
+            </div>
+ 
+            <div class="pull-left more-right" style="margin-top: 0px;">
+            	<div class="more-tt"><h2>{{ course.name }}</h2></div>
+                <div class="more-money clearfix">
+                	<!--<div class="pull-left money-left">2900元/月</div>-->
+                    <div class="pull-left"><div class="label-span">{{ course.desc }}</div></div>
+                </div>
+                <div class="more-txt">
+                	<p>难&nbsp;&nbsp;度：<font size="5" color="#FB8344">{{ course.get_degree_display }}</font></p>
+                    <p>时&nbsp;&nbsp;长：共<font size="4" color="#FB8344">{{ course.learn_times }}</font>分钟
+                    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;章节数：<font size="4" color="#FB8344">{{ course.get_zj_nums }}</font></p>
+                    <p>课程类别：<font size="4" color="#FB8344">{{ course.category }}</font></p>
+                    <p>学习用户：{% for user_course in course.get_learn_users %}
                                     <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
                                 {% endfor %}
-							</li>
-						</ul>
-						<div class="btns">
-							<div class="btn colectgroupbtn"  id="jsLeftBtn">
-                                  {% if has_fav_course %}已收藏{% else %}收藏{% endif %}
-                            </div>
-                                <div class="buy btn"><a style="color: white" href="{% url 'course:course_info' course.id %}">开始学习</a></div>
-						</div>
-					</div>
-                    <div class="group-share-box">
-                        <div class="bdsharebuttonbox"
-                             data-text="django开始了"
-                             data-desc="我在#慕课网#发现了"
-                             data-comment=""
-                             data-url="/group/groupdetail/15/">
-                            <span class="fl">分享到：</span>
-                            <a href="#" class="bds_more" data-cmd="more"></a>
-                            <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
-                            <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
-                            <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
-                            <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
-                            <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
-                        </div>
+                    </p>
+                </div>
+                
+                <div>
+					<div class="btn btn-info glyphicon glyphicon-heart"  id="jsLeftBtn">
+                          {% if has_fav_course %}已收藏{% else %}收藏{% endif %}&nbsp;
                     </div>
+                    <div class="btn btn-danger glyphicon glyphicon-pencil"><a style="color: white" href="{% url 'course:course_info' course.id %}">&nbsp;开始学习&nbsp;</a></div>
 				</div>
-				<div class="right">
-					<div class="head">
-						<h1>授课机构</h1>
-						<p>世界名校，课程权威</p>
-					</div>
-					<div class="pic">
-                        <a href="/company/14/">
-                            <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.course_org.image }}"/>
-                        </a>
-                    </div>
-					<a href="/company/14/">
-                        <h2 class="center" title="清华大学">{{ course.course_org.name }}</h2>
-                    </a>
-					<div class="btn  notlogin
-					     "data-favid="14" id="jsRightBtn">
-                         {% if has_fav_org %}已收藏{% else %}收藏{% endif %}
-                    </div>
-					<div class="clear">
-						<ul>
-                            <li>
-                                <span>课 &nbsp;程&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   {{ course.course_org.course_nums }}</span>
-                            </li>
-                            <li>
-                                <span>教 &nbsp;师&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{ course.course_org.get_teacher_nums }}</span>
-                            </li>
-							<li>所在地区：&nbsp;&nbsp;{{ course.course_org.address }}</li>
-							<li>认&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证&nbsp;:
-                                &nbsp;&nbsp;
-								    <img title="金牌机构", src="{% static 'images/gold.png' %}"/>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <div id="room3">
+
 	</div>
-</section>
-    <section>
-	<div class="wp">
-		<div class="list groupPurchase_detail_pro">
-			<div class="left layout">
-				<div class="head">
-					<ul class="tab_header">
-						<li class="active">课程详情</li>
-					</ul>
-				</div>
-				<div class="tab_cont tab_cont1">
+	</div>
+    <div class="container">
+    	<div class="margin-top" style="display: none;"></div>
+        <ul class="more-border nav" id="navbarExample" style="padding-left:0px;">
+            <li class="1 active"><a href="#navbarExample">课程详情</a></li>
+            <!--<li class="2"><a href="#ms">课程详情</a></li>
+            <li class="3"><a href="#pp">课程详情</a></li>
+            <li class="4"><a href="#wz">课程详情</a></li>-->
+        </ul>
+        <div class="clearfix more-bottom" id="aaa">
+        	<div class="pull-left more-b-left">
                     {% autoescape off %}
 					{{ course.detail }}
                     {% endautoescape %}
-				</div>
-				<div class="tab_cont tab_cont2" >
-					<div class="comment">
-						<div class="comenlist">
-
-	                    </div>
-					</div>
-				</div>
-			</div>
-			<div class="right layout">
-				<div class="head">相关课程推荐</div>
-                <div class="group_recommend">
-                    {% for relate_course in relate_coures %}
-                        <dl>
-                            <dt>
-                                <a target="_blank" href="">
+            </div>
+            <div class="more-right-p">
+                <div class="yy-form" id="form">
+                    <div class="yy-tt">相关课程</div>
+                    <div class="yy-padding">
+                        {% for relate_course in relate_coures %}
+							<p style="margin-top: 25px;">
+                                <a target="_blank" href="{% url 'course:course_detail' relate_course.id %}">
                                     <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.image }}"/>
+                                    <h2> {{ relate_course.name }}</h2>
+                                <span class="fl">学习时长：<font size="5" color="#FB8344">{{ relate_course.learn_times }}</font></span>
                                 </a>
-                            </dt>
-                            <dd>
-                                <a target="_blank" href=""><h2> {{ relate_course.name }}</h2></a>
-                                <span class="fl">学习时长：<i class="key">{{ relate_course.learn_times }}</i></span>
-                            </dd>
-                        </dl>
-                    {% endfor %}
+							</p>       
 
-
+                    	{% endfor %}
+                    </div>
                 </div>
-			</div>
-		</div>
-	</div>
-</section>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block custom_js %}
@@ -183,10 +113,10 @@ function add_fav(current_elem, fav_id, fav_type){
 $('#jsLeftBtn').on('click', function(){
     add_fav($(this), {{ course.id }}, 1);
 });
-
-$('#jsRightBtn').on('click', function(){
-    add_fav($(this), {{ course.course_org.id }}, 2);
-});
+//下面这个按钮时收藏org,本页面course-detail用不到
+//$('#jsRightBtn').on('click', function(){
+//  add_fav($(this), {{ course.course_org.id }}, 2);
+//});
 
 
 </script>

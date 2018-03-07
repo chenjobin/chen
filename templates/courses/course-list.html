@@ -70,7 +70,7 @@
         	<li>    
             	<a href="{% url 'course:course_detail' hot_course.id %}">
                 	<div class="zf-img"><img src="{{ MEDIA_URL }}{{ hot_course.image }}"></div>
-                    <div class="right-money">{{ teacher.name }}</div>
+                    <div class="right-money">{{ hot_course.name }}</div>
                     <div class="right-txt">
                     	<p>难度：<i style="color: #fb8341;"><font size="5">{{ hot_course.get_degree_display }}</font></i></p>
                         <div> </div>
