@@ -10,9 +10,20 @@
     <!-- Bootstrap -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/css.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'css/style.css' %}" rel="stylesheet">-->
+   	<script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- 百度统计 -->
+    <script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?22611f1e6610253d076f2863e12217df";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
     {% block custom_css %}{% endblock %}
 </head>
 <body data-ruyitao-uid="c5wr5554a379" class="">
@@ -40,9 +51,29 @@
 			</li>
 		
           </ul>
+            <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li class="dropdown" id="dropdown-navig">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              	<img src="{% if user.image %}{{ MEDIA_URL }}{{ request.user.image }}{%else%}{% static 'avatar/online/h1.jpg' %}{%endif%}" class="navbar-header" width="35px" heigth="35px" style="position:relative;top:-6px;"/>
+              	&nbsp;&nbsp;您好！{% if user.first_name %}{{user.first_name}}{%else%}{{user.username}}{%endif%} <span class="caret"></span>
+              </a>
+	              <ul class="dropdown-menu"  aria-labelledby="#dropdown-navig">
+	                <li><a href="{%url 'users:user_info'%}">用户中心</a></li>
+	                <li><a href="">修改头像</a></li>
+	                <li role="separator" class="divider"></li>
+	                <li><a href="{%url 'logout'%}">注销</a></li>
+	              </ul>
+            </li>
+			<li><a href="{%url 'logout'%}">注销</a></li>
+            {% else %}
+				<li><a href="{% url 'register' %}?next={{ request.path }}">注册</a></li>
+				<li><a href="{% url 'login' %}?next={{ request.path }}">登录</a></li>
+			{% endif %}
+          </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
-    </nav><!-- /.navbar -->
+   </nav><!-- /.navbar -->
 	<div class="container top clearfix nav-myself">
 		<p>nav</p>
     	<div class="pull-left logo"><a href=""><img src="{% static 'images/logo1.jpg' %}"></a></div>
