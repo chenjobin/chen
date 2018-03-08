@@ -400,7 +400,7 @@ $(function() {
         if($jsSelectMenu.css('display') == 'block') return;
         $jsSelectMenu.addClass('dis');
     });
-    $('#jsSelectMenu > li').on('click', function(){
+    $('#jsSelectMenu > a').on('click', function(){
         var searchType = $(this).attr('data-value'),
             searchName = $(this).text(),
             $jsSelectOption = $('#jsSelectOption');

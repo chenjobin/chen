@@ -156,25 +156,52 @@
     </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-            $(".select_box").click(function(event){   
-                event.stopPropagation();
-                $(this).find(".option").toggle();
-                $(this).parent().siblings().find(".option").hide();
-            });
-            $(document).click(function(event){
-                var eo=$(event.target);
-                if($(".select_box").is(":visible") && eo.attr("class")!="option" && !eo.parent(".option").length)
-                $('.option').hide();                                      
-            });
-            /*赋值给文本框*/
-            $(".option a").click(function(){
-                var value=$(this).text();
-                $(this).parent().siblings(".select_txt").text(value);
-                $("#select_value").val(value)
-             })
-        })
+$(document).ready(function(){
+        $(".select_box").click(function(event){   
+            event.stopPropagation();
+            $(this).find(".option").toggle();
+            $(this).parent().siblings().find(".option").hide();
+        });	
+    	$('#jsSelectMenu > a').on('click', function(){
+	        var searchType = $(this).attr('data-value'),
+	            searchName = $(this).text(),
+	            $jsSelectOption = $('#jsSelectOption');
+	        $jsSelectOption.attr('data-value',searchType).text(searchName);
+	        $(this).parent().removeClass('dis');
+	    });
+        $(document).click(function(event){
+            var eo=$(event.target);
+            if($(".select_box").is(":visible") && eo.attr("class")!="option" && !eo.parent(".option").length)
+            $('.option').hide();                                      
+        });
+        /*赋值给文本框*/
+        $(".option a").click(function(){
+            var value=$(this).text();
+            $(this).parent().siblings(".select_txt").text(value);
+            $("#select_value").val(value)
+         })
+        /*搜索按钮*/
+        $('#jsSearchBtn').on('click',function(){
+        	search_click()
+    	});
+})
+function search_click(){
+    var type = $('#jsSelectOption').attr('data-value'),
+        keywords = $('#search_keywords').val(),
+        request_url = '';
+    if(keywords == ""){
+        return
+    }
+    if(type == "course"){
+        request_url = "/course/list?keywords="+keywords
+    }else if(type == "teacher"){
+        request_url = "/org/teacher/list?keywords="+keywords
+    }else if(type == "org"){
+        request_url = "/org/list?keywords="+keywords
+    }
+    window.location.href = request_url
+}
 </script>
-<script src="{% static 'js/deco-common.js' %}" type='text/javascript'></script>
+
 {% block custom_js %}{% endblock %}
 </body></html>
