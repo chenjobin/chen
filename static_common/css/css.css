@@ -7,7 +7,8 @@ ul{ padding:0; margin:0;}
 a{ color:#000;text-decoration:none}
 a:hover{ color:#ff5600;}
 a:hover,a:focus{ text-decoration:none !important;}
-.container{ width:1230px; overflow:hidden;}
+/*.container{ width:1230px; overflow:hidden;}*/
+.container{ width:1230px; overflow:inherit;}
 .top{ padding-top:30px; padding-bottom:20px;}
 .search-c {
     position: relative;

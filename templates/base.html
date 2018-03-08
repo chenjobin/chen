@@ -53,19 +53,22 @@
           </ul>
             <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
+            	{% if request.user.unread_nums > 0 %}
+            	<li><a href="{% url 'users:mymessage' %}"><span class="glyphicon glyphicon-volume-up"></span></a></li>
+            	{% endif %}
             <li class="dropdown" id="dropdown-navig">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               	<img src="{% if user.image %}{{ MEDIA_URL }}{{ request.user.image }}{%else%}{% static 'avatar/online/h1.jpg' %}{%endif%}" class="navbar-header" width="35px" heigth="35px" style="position:relative;top:-6px;"/>
               	&nbsp;&nbsp;您好！{% if user.first_name %}{{user.first_name}}{%else%}{{user.username}}{%endif%} <span class="caret"></span>
               </a>
 	              <ul class="dropdown-menu"  aria-labelledby="#dropdown-navig">
-	                <li><a href="{%url 'users:user_info'%}">用户中心</a></li>
-	                <li><a href="">修改头像</a></li>
+	                <li><a href="{% url 'users:user_info' %}">个人资料</a></li>
+		            <li><a href="{% url 'users:mycourse' %}">我的课程</a></li>
+		            <li><a href="{% url 'users:myfav_org' %}">我的收藏</a></li>
 	                <li role="separator" class="divider"></li>
 	                <li><a href="{%url 'logout'%}">注销</a></li>
 	              </ul>
             </li>
-			<li><a href="{%url 'logout'%}">注销</a></li>
             {% else %}
 				<li><a href="{% url 'register' %}?next={{ request.path }}">注册</a></li>
 				<li><a href="{% url 'login' %}?next={{ request.path }}">登录</a></li>
