@@ -17,10 +17,10 @@ class UserAsk(models.Model):
 
 
 class CourseComments(models.Model):
-    "课程评论"
+    "课程评论，改编使用，作为个人笔记"
     user = models.ForeignKey(UserProfile, verbose_name=u"用户",on_delete=models.CASCADE)
     course = models.ForeignKey(Course, verbose_name=u"课程",on_delete=models.CASCADE)
-    comments = models.CharField(max_length=200, verbose_name=u"评论")
+    comments = models.CharField(max_length=200, verbose_name=u"笔记")
     add_time = models.DateTimeField(auto_now_add=True, verbose_name=u"添加时间")
 
     class Meta:

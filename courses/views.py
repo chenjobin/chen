@@ -120,11 +120,19 @@ class CommentsView(LoginRequiredMixin, View):
         all_resources = CourseResource.objects.filter(course=course)
         # all_comments = CourseComments.objects.all().order_by("-id")
         all_comments = CourseComments.objects.filter(course=course).order_by("-id")
+        #对课程笔记进行分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_comments, 10, request=request)
+        comments = p.page(page)
+
         return render(request, "courses/course-comment.html", {
             "course":course,
             "course_resources":all_resources,
-            "all_comments":all_comments
-
+            "all_comments":comments
         })
 
 
