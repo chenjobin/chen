@@ -1,80 +1,80 @@
 {% extends 'base.html' %}
-{% block title %}公开课视频信息 - 芙中学习网{% endblock %}
+{% block title %}课程详情 - 芙中学习网{% endblock %}
 {% load staticfiles %}
-{% block custom_bread %}
-    <section>
-	<div class="wp">
-		<div class="crumbs">
-			<ul>
-				<li><a href="/">首页</a>></li>
-                <li><a href="{% url 'course:course_list' %}">公开课程</a>></li>
-				<li><a href="{% url 'course:course_detail' course.id %}">课程详情</a>></li>
-                <li>章节信息</li>
-			</ul>
-		</div>
-	</div>
-</section>
-{% endblock %}
 
 {% block custom_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/learn-less.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}" />
-     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/common-less.css' %}">
+<link href="{% static 'css/muke/course/learn-less.css' %}" rel="stylesheet">
+<link href="{% static 'css/muke/course/common-less.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block custom_bread %}
+    <div class="nav-bottom">
+    	<div class="container"><a href="{% url 'index' %}">首页</a><span>&gt;</span>
+    		<a href="{% url 'course:course_list' %}">课程</a><span>&gt;</span>
+    		<a href="{% url 'course:course_detail' course.id %}">课程详情</a><span>&gt;</span>
+    		章节信息</div>
+    </div>
 {% endblock %}
 
 {% block content %}
-    <div id="main">
-    <div class="course-infos">
-        <div class="w pr">
-            <div style="height: 15px" class="path">
+	<div class="container zf-more">
+    	<div class="clearfix">
+        	<div class="pull-left">
+				<img class="sp-image img-responsive center-block" src="{{ MEDIA_URL }}{{ course.image }}">   
             </div>
-            <div class="hd">
-                <h2 class="l">{{ course.name }}</h2>
-            </div>
-            <div class="statics clearfix">
-                <div class="static-item ">
-                    <span class="meta-value"><strong>{{ course.get_degree_display }}</strong></span>
-                    <span class="meta">难度</span>
-                    <em></em>
+ 
+            <div class="pull-left more-right" style="margin-top: 0px;">
+            	<div class="more-tt"><h2>{{ course.name }}</h2></div>
+                <div class="more-money clearfix">
+                	<!--<div class="pull-left money-left">2900元/月</div>-->
+                    <div class="pull-left"><div class="label-span">{{ course.desc }}</div></div>
                 </div>
-                <div class="static-item static-time">
-                    <span class="meta-value">{{ course.learn_times }}分钟</span>
-                    <span class="meta">时长</span>
-                    <em></em>
+                <div class="more-txt">
+                	<p>难&nbsp;&nbsp;度：<font size="5" color="#FB8344">{{ course.get_degree_display }}</font></p>
+                    <p>时&nbsp;&nbsp;长：共<font size="4" color="#FB8344">{{ course.learn_times }}</font>分钟
+                    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;章节数：<font size="4" color="#FB8344">{{ course.get_zj_nums }}</font></p>
+                    <p>课程类别：<font size="4" color="#FB8344">{{ course.category }}</font></p>
+                    <p>学习用户：{% for user_course in course.get_learn_users %}
+                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
+                                {% endfor %}
+                    </p>
                 </div>
-                <div class="static-item">
-                    <span class="meta-value"><strong>{{ course.students }}</strong></span>
-                    <span class="meta">学习人数</span>
-                    <em></em>
-                </div>
+                <div>
+					<div>
+                       课程进度：考虑以后添加进度条或者显示学习到哪里了，具体由教师后台决定学生优秀、良好、合格，来衡量当前进度  
+                    </div>
+                    
+				</div>
             </div>
         </div>
     </div>
-    <div class="course-info-main clearfix w has-progress">
+    <div class="container">
+    <div id="room3">
 
-        <div class="info-bar clearfix">
-        <div class="content-wrap clearfix">
-            <div class="content">
-                <div class="mod-tab-menu">
-                    <ul class="course-menu clearfix">
-                        <li><a class="ui-tabs-active active" id="learnOn"  href="{% url 'course:course_info' course.id %}"><span>章节</span></a></li>
-                        <li><a id="commentOn" class="" href="{% url 'course:course_comments' course.id %}"><span>评论</span></a></li>
-                    </ul>
+	</div>
+	</div>
+    <div class="container">
+    	<div class="margin-top" style="display: none;"></div>
+        <ul class="more-border nav" id="navbarExample" style="padding-left:0px;">
+            <li class="1 active"><a href="#navbarExample">章节目录</a></li>
+            <li class="2"><a href="#wz">资料下载</a></li>
+            <li class="3"><a href="#ms">个人笔记</a></li>
+            <li class="4"><a href="#pp">问答讨论</a></li>
+            <li class="5"><a href="#wz">随堂练习</a></li>
+        </ul>
+        <div class="clearfix more-bottom" id="aaa">
+        	<div class="pull-left more-b-left" style="margin:5px auto;">
+        		<div id="notice" class="clearfix" style="background-color: #FFF5EE;padding: 10px;height: 45px;">
+                    <div style="color:#FB8344;"><strong>课程公告:&nbsp;</strong>Spring的文档以及相关的jar文件已上传</div>
                 </div>
-                <div id="notice" class="clearfix">
-                    <div class="l"> <strong>课程公告:</strong> <a  href="javascript:void(0)">Spring的文档以及相关的jar文件已上传</a> </div>
-                </div>
-
-                <div class="mod-chapters">
+                
+                <div class="mod-chapters" style="padding: 0px;">
                     {% for lesson in course.get_course_lesson %}
-                    <div class="chapter chapter-active" >
+                    <div class="chapter chapter-active" style="padding: 0px;">
                         <h3>
                             <strong><i class="state-expand"></i>{{ lesson.name }}</strong>
                         </h3>
-                        <ul class="video">
+                        <ul class="video" style="margin: 0px;">
                             {% for video in lesson.get_lesson_video %}
                             <li>
                                 <a target="_blank" href='/video/3662' class="J-media-item studyvideo">{{ video.name }} ({{ video.learn_times }})
@@ -86,84 +86,121 @@
                     </div>
                     {% endfor %}
                 </div>
-
+                <div style="height: 105px;"></div>
             </div>
-            <div class="aside r">
-                <div class="bd">
-
-                    <div class="box mb40">
-                        <h4>资料下载</h4>
-                        <ul class="downlist">
-                            {% for course_resource in course_resources %}
-                            <li>
-                                <span ><i class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;{{ course_resource.name }}</span>
-                                <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="box mb40">
-                        <h4>讲师提示</h4>
-                        <div class="teacher-info">
-                            <a href="/u/315464/courses?sort=publish" target="_blank">
-                                <img src='{{ MEDIA_URL }}{{ course.teacher.image }}' width='80' height='80' />
-                            </a>
-        <span class="tit">
-          <a href="/u/315464/courses?sort=publish" target="_blank">{{ course.teacher.name }}</a>
-        </span>
-                            <span class="job">{{ course.teacher.work_position }}</span>
-                        </div>
-                        <div class="course-info-tip">
-                            <dl class="first">
-                                <dt>课程须知</dt>
-                                <dd class="autowrap">{{ course.youneed_know }}</dd>
-                            </dl>
-                            <dl>
-                                <dt>老师告诉你能学到什么？</dt>
-                                <dd class="autowrap">{{ course.teacher_tell }}</dd>
-                            </dl>
-                        </div>
-                    </div>
-
-
-                    <div class="cp-other-learned  js-comp-tabs">
-                        <div class="cp-header clearfix">
-                            <h2 class="cp-tit l">该课的同学还学过</h2>
-                        </div>
-                        <div class="cp-body">
-                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course" style="display: block">
-                                <!-- img 200 x 112 -->
-                                <ul class="other-list">
-                                    {% for relate_course in relate_courses %}
-                                    <li class="curr">
-                                        <a href="{% url 'course:course_detail' relate_course.id %}" target="_blank">
-                                            <img src="{{ MEDIA_URL }}{{ relate_course.image }}" alt="{{ relate_course.name }}">
-                                            <span class="name autowrap">{{ relate_course.name }}</span>
-                                        </a>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="plan">
-                                <ul class="other-list">
-                                    <li class="curr">
-                                        <a href="/course/programdetail/pid/31?src=sug" target="_blank">
-                                            <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg" alt="Java工程师">
-                                            <span class="name autowrap">Java工程师</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>    </div>
+            <div class="more-right-p course-info-main">
+				<div class="aside r" style="margin-top: -140px;">
+	                <div class="bd">
+	                    <div class="box mb40">
+	                        <h4>资料下载</h4>
+	                        <ul class="downlist">
+	                            {% for course_resource in course_resources %}
+	                            <li>
+	                                <span ><i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;{{ course_resource.name }}</span>
+	                                <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
+	                            </li>
+	                            {% endfor %}
+	                        </ul>
+	                    </div>
+	                    <div class="box mb40">
+	                        <h4>讲师提示</h4>
+	                        <div class="teacher-info">
+	                            <a href="/u/315464/courses?sort=publish" target="_blank">
+	                                <img src='{{ MEDIA_URL }}{{ course.teacher.image }}' width='80' height='80' />
+	                            </a>
+						        <span class="tit">
+						          <a href="/u/315464/courses?sort=publish" target="_blank">{{ course.teacher.name }}</a>
+						        </span>
+	                            <span class="job">{{ course.teacher.work_position }}</span>
+	                        </div>
+	                        <div class="course-info-tip">
+	                            <dl class="first">
+	                                <dt>课程须知</dt>
+	                                <dd class="autowrap">{{ course.youneed_know }}</dd>
+	                            </dl>
+	                            <dl>
+	                                <dt>老师告诉你能学到什么？</dt>
+	                                <dd class="autowrap">{{ course.teacher_tell }}</dd>
+	                            </dl>
+	                        </div>
+	                    </div>
+	
+	
+	                    <div class="cp-other-learned  js-comp-tabs">
+	                        <div class="cp-header clearfix">
+	                            <h2 class="cp-tit l">该课的同学还学过</h2>
+	                        </div>
+	                        <div class="cp-body">
+	                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course" style="display: block">
+	                                <!-- img 200 x 112 -->
+	                                <ul class="other-list">
+	                                    {% for relate_course in relate_courses %}
+	                                    <li class="curr">
+	                                        <a href="{% url 'course:course_detail' relate_course.id %}" target="_blank">
+	                                            <img src="{{ MEDIA_URL }}{{ relate_course.image }}" alt="{{ relate_course.name }}">
+	                                            <span class="name autowrap">{{ relate_course.name }}</span>
+	                                        </a>
+	                                    </li>
+	                                    {% endfor %}
+	                                </ul>
+	                            </div>
+	                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="plan">
+	                                <ul class="other-list">
+	                                    <li class="curr">
+	                                        <a href="/course/programdetail/pid/31?src=sug" target="_blank">
+	                                            <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg" alt="Java工程师">
+	                                            <span class="name autowrap">Java工程师</span>
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                    </div>
+	
+	                </div>    
+	            </div>
+            </div>
         </div>
-        <div class="clear"></div>
-
     </div>
-
-</div>
-</div>
 {% endblock %}
 
+{% block custom_js %}
+<script type="text/javascript">
+//收藏分享
+function add_fav(current_elem, fav_id, fav_type){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"{% url "org:add_fav" %}",
+        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == '用户未登录'){
+                    window.location.href="/login/";
+                }else{
+                    alert(data.msg)
+                }
+
+            }else if(data.status == 'success'){
+                current_elem.text(data.msg)
+            }
+        },
+    });
+}
+
+$('#jsLeftBtn').on('click', function(){
+    add_fav($(this), {{ course.id }}, 1);
+});
+//下面这个按钮时收藏org,本页面course-detail用不到
+//$('#jsRightBtn').on('click', function(){
+//  add_fav($(this), {{ course.course_org.id }}, 2);
+//});
+
+
+</script>
+
+{% endblock %}
