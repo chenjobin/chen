@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block custom_css %}
-<link href="{% static 'css/muke/course/learn-less.css' %}" rel="stylesheet">
+
 <link href="{% static 'css/muke/course/common-less.css' %}" rel="stylesheet">
 {% endblock %}
 
@@ -56,52 +56,29 @@
     <div class="container">
     	<div class="margin-top" style="display: none;"></div>
         <ul class="more-border nav" id="navbarExample" style="padding-left:0px;">
-            <li class="1 active"><a href="#navbarExample">章节目录</a></li>
-            <li class="2"><a href="{% url 'course:course_resource' course.id %}#navbarExample">资料下载</a></li>
+            <li class="1"><a href="{% url 'course:course_info' course.id %}#navbarExample">章节目录</a></li>
+            <li class="2 active"><a href="#navbarExample">资料下载</a></li>
             <li class="3"><a href="{% url 'course:course_comments' course.id %}#navbarExample">个人笔记</a></li>
             <li class="4"><a href="{% url 'course:course_ask' course.id %}#navbarExample">答疑解惑</a></li>
             <li class="5"><a href="#wz">随堂练习</a></li>
         </ul>
         <div class="clearfix more-bottom" id="aaa">
         	<div class="pull-left more-b-left" style="margin:5px auto;">
-        		<div id="notice" class="clearfix" style="background-color: #FFF5EE;padding: 10px;height: 45px;">
-                    <div style="color:#FB8344;"><strong>课程公告:&nbsp;</strong>Spring的文档以及相关的jar文件已上传</div>
+			    <div class="box mb40">
+                    <ul class="downlist">
+                        {% for course_resource in course_resources %}
+                        <li>
+                            <span ><i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;{{ course_resource.name }}</span>
+                            <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                
-                <div class="mod-chapters" style="padding: 0px;">
-                    {% for lesson in course.get_course_lesson %}
-                    <div class="chapter chapter-active" style="padding: 0px;">
-                        <h3>
-                            <strong><i class="state-expand"></i>{{ lesson.name }}</strong>
-                        </h3>
-                        <ul class="video" style="margin: 0px;">
-                            {% for video in lesson.get_lesson_video %}
-                            <li>
-                                <a target="_blank" href='/video/3662' class="J-media-item studyvideo">{{ video.name }} ({{ video.learn_times }})
-                                    <i class="study-state"></i>
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div style="height: 105px;"></div>
+                <div style="height: 105px;"><!--这个是用来避免手机屏幕上右边资料下载顶到这里的章节信息等内容--></div>
             </div>
             <div class="more-right-p course-info-main">
 				<div class="aside r" style="margin-top: -140px;">
 	                <div class="bd">
-	                    <div class="box mb40">
-	                        <h4>资料下载</h4>
-	                        <ul class="downlist">
-	                            {% for course_resource in course_resources %}
-	                            <li>
-	                                <span ><i class="glyphicon glyphicon-file"></i>&nbsp;&nbsp;{{ course_resource.name }}</span>
-	                                <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
-	                            </li>
-	                            {% endfor %}
-	                        </ul>
-	                    </div>
 	                    <div class="box mb40">
 	                        <h4>讲师提示</h4>
 	                        <div class="teacher-info">
@@ -124,39 +101,6 @@
 	                            </dl>
 	                        </div>
 	                    </div>
-	
-	
-	                    <div class="cp-other-learned  js-comp-tabs">
-	                        <div class="cp-header clearfix">
-	                            <h2 class="cp-tit l">该课的同学还学过</h2>
-	                        </div>
-	                        <div class="cp-body">
-	                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course" style="display: block">
-	                                <!-- img 200 x 112 -->
-	                                <ul class="other-list">
-	                                    {% for relate_course in relate_courses %}
-	                                    <li class="curr">
-	                                        <a href="{% url 'course:course_detail' relate_course.id %}" target="_blank">
-	                                            <img src="{{ MEDIA_URL }}{{ relate_course.image }}" alt="{{ relate_course.name }}">
-	                                            <span class="name autowrap">{{ relate_course.name }}</span>
-	                                        </a>
-	                                    </li>
-	                                    {% endfor %}
-	                                </ul>
-	                            </div>
-	                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="plan">
-	                                <ul class="other-list">
-	                                    <li class="curr">
-	                                        <a href="/course/programdetail/pid/31?src=sug" target="_blank">
-	                                            <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg" alt="Java工程师">
-	                                            <span class="name autowrap">Java工程师</span>
-	                                        </a>
-	                                    </li>
-	                                </ul>
-	                            </div>
-	                        </div>
-	                    </div>
-	
 	                </div>    
 	            </div>
             </div>
@@ -164,3 +108,40 @@
     </div>
 {% endblock %}
 
+{% block custom_js %}
+<script type="text/javascript">
+    //添加评论
+    $('#js-pl-submit').on('click', function(){
+        var comments = $("#js-pl-textarea").val()
+        if(comments == ""){
+            alert("评论不能为空")
+            return
+        }
+        //在存储到数据库之前，将“\r\n"替换为"<br>". 然后在保存到数据库中。可以使其在页面显示时，保留换行的格式
+        comments = comments.replace(new RegExp("\n", "gm"), "<br>"); 
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:"{% url 'course:add_comment' %}",
+            data:{'course_id':{{ course.id }}, 'comments':comments},
+            async: true,
+            beforeSend:function(xhr, settings){
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function(data) {
+                if(data.status == 'fail'){
+                    if(data.msg == '用户未登录'){
+                        window.location.href="/login/";
+                    }else{
+                        alert(data.msg)
+                    }
+
+                }else if(data.status == 'success'){
+                    window.location.reload();//刷新当前页面.
+                }
+            },
+        });
+    });
+
+</script>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from .views import CourseListView,CourseDetailView,CourseInfoView,CommentsView,AddCommentsView
+from .views import CourseListView,CourseDetailView,CourseInfoView,CommentsView,AddCommentsView,AskView,ResourceView
 
 app_name = 'courses'    #django2.0需要加上，否则报错
 urlpatterns = [
@@ -20,4 +20,8 @@ urlpatterns = [
     #添加课程评论
     path('add_comment/', AddCommentsView.as_view(), name="add_comment"),
 
+    # 课程答疑解惑
+    path('ask/<int:course_id>/', AskView.as_view(), name="course_ask"),
+    # 课程资料下载
+    path('resource/<int:course_id>/', ResourceView.as_view(), name="course_resource"),
 ]

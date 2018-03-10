@@ -157,3 +157,31 @@ class AddCommentsView(View):
             return HttpResponse('{"status":"success", "msg":"添加成功"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"添加失败"}', content_type='application/json')
+
+
+class AskView(LoginRequiredMixin, View):
+    """
+    答疑解惑，打算用畅言进行，若是不好用，以后考虑自己做轮子？
+    """
+    def get(self, request, course_id):
+        course = Course.objects.get(id=int(course_id))
+        all_resources = CourseResource.objects.filter(course=course)
+
+        return render(request, "courses/course-ask.html", {
+            "course":course,
+            "course_resources":all_resources,
+        })
+
+
+class ResourceView(LoginRequiredMixin, View):
+    """
+    课程资源下载，只出现本节课的资源
+    """
+    def get(self, request, course_id):
+        course = Course.objects.get(id=int(course_id))
+        all_resources = CourseResource.objects.filter(course=course)
+
+        return render(request, "courses/course-resource.html", {
+            "course":course,
+            "course_resources":all_resources,
+        })

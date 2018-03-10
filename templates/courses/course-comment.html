@@ -56,10 +56,10 @@
     <div class="container">
     	<div class="margin-top" style="display: none;"></div>
         <ul class="more-border nav" id="navbarExample" style="padding-left:0px;">
-            <li class="1"><a href="{% url 'course:course_info' course.id %}">章节目录</a></li>
-            <li class="2"><a href="#wz">资料下载</a></li>
+            <li class="1"><a href="{% url 'course:course_info' course.id %}#navbarExample">章节目录</a></li>
+            <li class="2"><a href="{% url 'course:course_resource' course.id %}#navbarExample">资料下载</a></li>
             <li class="3 active"><a href="#navbarExample">个人笔记</a></li>
-            <li class="4"><a href="#pp">问答讨论</a></li>
+            <li class="4"><a href="{% url 'course:course_ask' course.id %}#navbarExample">答疑解惑</a></li>
             <li class="5"><a href="#wz">随堂练习</a></li>
         </ul>
         <div class="clearfix more-bottom" id="aaa">
