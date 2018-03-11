@@ -109,7 +109,7 @@ class RegisterView(View):
             user_message.save()
 
             send_register_email(user_name, "register")
-            return render(request, "login.html")
+            return render(request, "login.html", {"email_has_send":True})
         else:
             return render(request, "register.html", {"register_form":register_form})
 
@@ -133,8 +133,11 @@ class ForgetPwdView(View):
         forget_form = ForgetForm(request.POST)
         if forget_form.is_valid():
             email = request.POST.get("email", "")
-            send_register_email(email, "forget")
-            return render(request, "send_success.html")
+            if UserProfile.objects.filter(email=email):
+                send_register_email(email, "forget")
+                return render(request, "send_success.html")
+            else:
+                return render(request, "forgetpwd.html", {"send_fail":True})
         else:
             return render(request, "forgetpwd.html", {"forget_form":forget_form})
 

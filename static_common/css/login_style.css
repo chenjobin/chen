@@ -117,6 +117,23 @@ input[type="submit"]:hover{
   color: #0bd38a;
 
 }
+
+.error{
+    background: #fb8344;
+    color:#fff !important;
+    text-align: center;
+    line-height: 40px !important;
+    margin:10px 0;
+}
+
+.captcha1 > input{
+     width:80px;
+}
+.captcha1 > img{
+    float:right;
+    margin-top:5px;
+}
+
 .new {
   margin: 4em 0 1em 0;
 }
