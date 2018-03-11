@@ -58,7 +58,7 @@
             	{% endif %}
             <li class="dropdown" id="dropdown-navig">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              	<img src="{% if user.image %}{{ MEDIA_URL }}{{ request.user.image }}{%else%}{% static 'avatar/online/h1.jpg' %}{%endif%}" class="navbar-header" width="35px" heigth="35px" style="position:relative;top:-6px;"/>
+              	<img src="{% if user.image %}{{ MEDIA_URL }}{{ request.user.image }}{% else %}{% static 'avatar/online/h1.jpg' %}{% endif %}" class="navbar-header" width="35px" heigth="35px" style="position:relative;top:-6px;"/>
               	&nbsp;&nbsp;您好！{% if user.first_name %}{{user.first_name}}{%else%}{{user.username}}{%endif%} <span class="caret"></span>
               </a>
 	              <ul class="dropdown-menu"  aria-labelledby="#dropdown-navig">

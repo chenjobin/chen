@@ -27,8 +27,8 @@
 				<div class="submit"><input type="submit" id="jsLoginBtn" value="立即登录" ></div>
 				<div class="clear"></div>
 				<div class="new">
-					<h3><a href="#">忘记密码?</a></h3>
-					<h4><a href="#">注册新账号</a></h4>
+					<h3><a href="{% url 'forget_pwd' %}">忘记密码?</a></h3>
+					<h4><a href="{% url 'register' %}">注册新账号</a></h4>
 					<div class="clear"></div>
 				</div>
 				{% csrf_token %}
