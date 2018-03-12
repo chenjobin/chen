@@ -14,7 +14,7 @@
 <body>
 	<br />
 		<div class="app-location">
-			<h2>欢迎来到芙中学习网</h2>
+			<h2>欢迎来到芙中学习网    &nbsp; &nbsp; &nbsp;  <a href="{% url 'index' %}"><font color="#FFFFFF">回到首页</font></a></h2>
 			<div class="line"><span></span></div>
 			<div class="location"><img src="{% static 'images/location.png' %}" class="img-responsive" alt="" /></div>
 			<form id="jsFindPwdForm" method="post" action="{% url 'forget_pwd' %}" autocomplete="off">
@@ -28,7 +28,7 @@
                 <div class="submit"><input id="jsFindPwdBtn" type="submit" value="提交" /></div>
 				<div class="clear"></div>
 				<div class="new">
-
+					<h3><a href="{% url 'login' %}">登录</a></h3>
 					<h4><a href="{% url 'register' %}">注册新账号</a></h4>
 					<div class="clear"></div>
 				</div>

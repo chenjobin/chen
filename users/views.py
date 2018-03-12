@@ -92,9 +92,14 @@ class RegisterView(View):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get("email", "")
+            pass_word = request.POST.get("password", "")
+            pass_word_2 = request.POST.get("password_2", "")
+            if not (pass_word==pass_word_2 and pass_word!=''):
+                return render(request, "register.html", {"register_form":register_form, "msg":"密码不一致，请重新输入"})
+
             if UserProfile.objects.filter(email=user_name):
                 return render(request, "register.html", {"register_form":register_form, "msg":"用户已经存在"})
-            pass_word = request.POST.get("password", "")
+
             user_profile = UserProfile()
             user_profile.username = user_name
             user_profile.email = user_name

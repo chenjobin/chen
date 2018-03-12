@@ -95,7 +95,17 @@ form {
   }
   .captcha1 input[type="text"]{
       background: url("../images/icons.png") no-repeat 13px -30px #474a55;
+      position:relative;
+      left: -20px;
+      margin-right:-120px;
   }
+  
+.captcha1 > img{
+    float:right;
+    margin-top:20px;
+    position:relative;
+    z-index: 19;
+}
   .submit {
   margin: 1em 0;
   }
@@ -129,13 +139,7 @@ input[type="submit"]:hover{
     margin:10px 0;
 }
 
-.captcha1 > input{
-     width:270px !important;
-}
-.captcha1 > img{
-    float:right;
-    margin-top:20px;
-}
+
 
 .new {
   margin: 4em 0 1em 0;
@@ -180,9 +184,7 @@ input[type="submit"]:hover{
     width: 82.2%;
   	
   }
-  .captcha1 > input{
-     width:61% !important;
-	}
+
 }
 @media (max-width:1366px){
   .app-location{
@@ -202,26 +204,20 @@ input[type="submit"]:hover{
 body h1 {
   font-size: 2.6em;
 }
-  .captcha1 > input{
-     width:61% !important;
-	}
+
   	
 }
 @media (max-width:1280px){
   .app-location {
   width: 37%;
   }
-    .captcha1 > input{
-     width:55% !important;
-	}
+
 }
 @media (max-width:1024px){
   .app-location {
   width: 47%;
 }
-   .captcha1 > input{
-     width:55% !important;
-	}
+
 }
 @media (max-width:768px){
   body h1 {
@@ -247,9 +243,7 @@ body h1 {
 .copy-right {
   padding: 1em 1em;
 }
-    .captcha1 > input{
-     width:52% !important;
-	}
+
 }
 @media (max-width:640px){
   body h1 {
@@ -283,7 +277,7 @@ body h1 {
   margin: 0.4em 0;
 }
    .captcha1 > input{
-     width:43% !important;
+     left:-6px !important;
 	}
 }
 @media (max-width:320px){
