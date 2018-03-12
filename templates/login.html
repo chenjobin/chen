@@ -17,12 +17,14 @@
 			<div class="line"><span></span></div>
 			<div class="location"><img src="{% static 'images/location.png' %}" class="img-responsive" alt="" /></div>
 			<form action="/login/" method="post" autocomplete="off">
+				<input type="hidden" name="next" value="{{ next }}"/>
 				<input name="username" id="account_l" type="text" placeholder="手机号/邮箱/用户名" />
 				<input name="password" id="password_l" type="password" placeholder="请输入您的密码" />
 				<div class="error" id="jsLoginTips">
 					{% for key,error in login_form.errors.items %}{{ error }}{% endfor %}{{ msg }}
 					{% if email_has_send%}邮件已发送，请前往激活{% endif %}
 				</div>
+				
 				<div align="left"><input type="checkbox" id="jsAutoLogin"> <font color="#F0F8FF">自动登录</font></div>
 				<div class="submit"><input type="submit" id="jsLoginBtn" value="立即登录" ></div>
 				<div class="clear"></div>

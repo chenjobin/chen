@@ -20,6 +20,7 @@ from operation.models import UserCourse, UserFavorite, UserMessage
 from organization.models import CourseOrg, Teacher
 from courses.models import Course
 from .models import Banner
+from django.shortcuts import redirect
 
 # 自定义authenticate方法，使其可以用username或者email登录 settings中也做过设置
 class CustomBackend(ModelBackend):
@@ -50,17 +51,24 @@ class IndexView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, "login.html", {})
+        redirect_to = request.GET.get('next','')  #为了让登陆后返回登陆前的当前页
+        return render(request, "login.html", {'next':redirect_to})
+
     def post(self, request):
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
             user_name = request.POST.get("username", "")
             pass_word = request.POST.get("password", "")
+            redirect_to = request.POST.get('next','')
             user = authenticate(username=user_name, password=pass_word)
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect(reverse("index"))
+                    # return HttpResponseRedirect(reverse("index"))
+                    if redirect_to:
+                        return redirect(redirect_to)
+                    else:
+                        return redirect('/')
                 else:
                     return render(request, "login.html", {"msg":"用户未激活！"})
             else:
