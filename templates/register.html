@@ -25,6 +25,7 @@
 				<div class="captcha1 {% if register_form.errors.captcha %}errorput{% endif %}">
                     {{ register_form.captcha }}
                 </div>
+                <input type="hidden" name="next" value="{{ next }}"/>
 				<div class="error btns" id="jsEmailTips">{% for key,error in register_form.errors.items %}{{ error }}{% endfor %}{{ msg }}</div>
 				<div class="submit"><input id="jsEmailRegBtn" type="submit" value="注册并登录" /></div>
 				<div class="clear"></div>

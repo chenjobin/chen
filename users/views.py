@@ -94,7 +94,8 @@ class ActiveUserView(View):
 class RegisterView(View):
     def get(self, request):
         register_form = RegisterForm()
-        return render(request, "register.html", {'register_form':register_form})
+        redirect_to = request.GET.get('next', '')  # 为了让登陆后返回登陆前的当前页
+        return render(request, "register.html", {'register_form':register_form,'next':redirect_to})
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
@@ -102,6 +103,7 @@ class RegisterView(View):
             user_name = request.POST.get("email", "")
             pass_word = request.POST.get("password", "")
             pass_word_2 = request.POST.get("password_2", "")
+            redirect_to = request.POST.get('next', '')
             if not (pass_word==pass_word_2 and pass_word!=''):
                 return render(request, "register.html", {"register_form":register_form, "msg":"密码不一致，请重新输入"})
 
@@ -122,7 +124,7 @@ class RegisterView(View):
             user_message.save()
 
             send_register_email(user_name, "register")
-            return render(request, "login.html", {"email_has_send":True})
+            return render(request, "login.html", {"email_has_send":True,'next':redirect_to})
         else:
             return render(request, "register.html", {"register_form":register_form})
 
