@@ -6,9 +6,12 @@
 <link href="{% static 'css/muke/course/learn-less.css' %}" rel="stylesheet">
 <link href="{% static 'css/muke/course/common-less.css' %}" rel="stylesheet">
 {% endblock %}
-
+{% block custom_search %}
+{% endblock %}  
+{% block custom_banner %}
+{% endblock %}  
 {% block custom_bread %}
-    <div class="nav-bottom">
+    <div class="nav-bottom" >
     	<div class="container"><a href="{% url 'index' %}">首页</a><span>&gt;</span>
     		<a href="{% url 'course:course_list' %}">课程</a><span>&gt;</span>
     		<a href="{% url 'course:course_detail' course.id %}">课程详情</a><span>&gt;</span>
@@ -18,34 +21,10 @@
 
 {% block content %}
 	<div class="container zf-more">
-    	<div class="clearfix">
-        	<div class="pull-left">
-				<img class="sp-image img-responsive center-block" src="{{ MEDIA_URL }}{{ course.image }}">   
-            </div>
- 
-            <div class="pull-left more-right" style="margin-top: 0px;">
-            	<div class="more-tt"><h2>{{ course.name }}</h2></div>
-                <div class="more-money clearfix">
-                	<!--<div class="pull-left money-left">2900元/月</div>-->
-                    <div class="pull-left"><div class="label-span">{{ course.desc }}</div></div>
-                </div>
-                <div class="more-txt">
-                	<p>难&nbsp;&nbsp;度：<font size="5" color="#FB8344">{{ course.get_degree_display }}</font></p>
-                    <p>时&nbsp;&nbsp;长：共<font size="4" color="#FB8344">{{ course.learn_times }}</font>分钟
-                    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;章节数：<font size="4" color="#FB8344">{{ course.get_zj_nums }}</font></p>
-                    <p>课程类别：<font size="4" color="#FB8344">{{ course.category }}</font></p>
-                    <p>学习用户：{% for user_course in course.get_learn_users %}
-                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
-                                {% endfor %}
-                    </p>
-                </div>
-                <div>
-					<div>
-                       课程进度：考虑以后添加进度条或者显示学习到哪里了，具体由教师后台决定学生优秀、良好、合格，来衡量当前进度  
-                    </div>
-                    
-				</div>
-            </div>
+    	<div class="clearfix" style="text-align: center;">
+    		<div class="box">
+        	{{ video.url|safe }}
+        	</div>
         </div>
     </div>
     <div class="container">
@@ -77,7 +56,7 @@
                         <ul class="video" style="margin: 0px;">
                             {% for video in lesson.get_lesson_video %}
                             <li>
-                                <a target="_blank" href="{% url 'course:course_video_play' lesson.course.id video.id %}" class="J-media-item studyvideo">{{ video.name }} ({{ video.learn_times }})
+                                <a target="_blank" href='/video/3662' class="J-media-item studyvideo">{{ video.name }} ({{ video.learn_times }})
                                     <i class="study-state"></i>
                                 </a>
                             </li>

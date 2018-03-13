@@ -81,7 +81,7 @@ class Video(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name=u"章节",on_delete=models.CASCADE)
     name = models.CharField(max_length=100, verbose_name=u"视频名")
     learn_times = models.IntegerField(default=0, verbose_name=u"学习时长(分钟数)")
-    url = models.CharField(max_length=200, default="", verbose_name=u"访问地址")
+    url = models.TextField(default=u"爱奇艺优酷等复制过来时，修改一下height为500，宽度为90%", verbose_name=u"访问地址")
     add_time = models.DateTimeField(auto_now_add=True, verbose_name=u"添加时间")
 
     class Meta:
@@ -89,7 +89,7 @@ class Video(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return '{0}章节的视频 >> {1}'.format(self.lesson,self.name)
 
 
 class CourseResource(models.Model):

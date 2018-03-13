@@ -2,7 +2,8 @@
 
 from django.urls import path
 
-from .views import CourseListView,CourseDetailView,CourseInfoView,CommentsView,AddCommentsView,AskView,ResourceView
+from .views import CourseListView,CourseDetailView,CourseInfoView,CommentsView,\
+    AddCommentsView,AskView,ResourceView,VideoPlayView
 
 app_name = 'courses'    #django2.0需要加上，否则报错
 urlpatterns = [
@@ -24,4 +25,6 @@ urlpatterns = [
     path('ask/<int:course_id>/', AskView.as_view(), name="course_ask"),
     # 课程资料下载
     path('resource/<int:course_id>/', ResourceView.as_view(), name="course_resource"),
+    # 课程视频播放
+    path('video_play/<int:course_id>,<int:video_id>/', VideoPlayView.as_view(), name="course_video_play"),
 ]

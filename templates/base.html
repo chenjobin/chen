@@ -77,6 +77,7 @@
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
    </nav><!-- /.navbar -->
+{% block custom_search %}
 	<div class="container top clearfix nav-myself">
 		<p>nav</p>
     	<div class="pull-left logo"><a href=""><img src="{% static 'images/logo1.jpg' %}"></a></div>
@@ -105,6 +106,7 @@
             <button type="button" class="btn btn-sear" id="jsSearchBtn">搜索</button>
         </div>
     </div>
+{% endblock %}
 {% block custom_banner %}
     <div class="about-banner">
     	<div class="about-img"><img src="{% static 'images/about.jpg' %}"></div>
