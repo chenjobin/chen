@@ -18,7 +18,6 @@
 			<div class="line"><span></span></div>
 			<div class="location"><img src="{% static 'images/location.png' %}" class="img-responsive" alt="" /></div>
 			<form id="jsFindPwdForm" method="post" action="{% url 'forget_pwd' %}" autocomplete="off">
-				<input type='hidden' name='csrfmiddlewaretoken' value='mymQDzHWl2REXIfPMg2mJaLqDfaS1sD5' />
 				<input type="text" id="account" name="email" value="{% if forget_form.email.value %}{{ forget_form.email.value }}{% endif %}" placeholder="邮箱" />
 				<div class="captcha1">                       
                     {{ forget_form.captcha }}
