@@ -26,7 +26,7 @@ SECRET_KEY = 'fx(g5a$12d5s4gv&p#s3+ibwd!@$5!oz=968e^#+vklngcke+$'
 DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','chenzhibin.vip']
+ALLOWED_HOSTS = ['127.0.0.1','chenzhibin.vip','mooc.chenzhibin.vip']
 
 # Application definition
 
